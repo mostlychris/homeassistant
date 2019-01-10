@@ -2,5 +2,5 @@
 
 Screenshots
 
-(/images/main-Home Assistant.png?raw=true)
-(/images/weather-Home Assistant.png?raw=true)
+![](/images/main-Home Assistant.png?raw=true)
+![](/images/weather-Home Assistant.png?raw=true)
