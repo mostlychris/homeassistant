@@ -1,0 +1,72 @@
+dummy_script:
+  sequence:
+
+alarm_arm_away:
+  sequence:
+  - service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.buck_creek
+  - service: shell_command.bi_away
+  - service: homeassistant.turn_off
+    entity_id: group.inside_lights
+  - service: lock.lock
+    entity_id: group.locks
+  - service: cover.close_cover
+    entity_id: cover.garage_door
+  - service: script.turn_on
+    entity_id: script.nest_eco
+
+alarm_arm_night:
+  sequence:
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.buck_creek
+  - service: shell_command.bi_night
+  - service: homeassistant.turn_off
+    entity_id: group.inside_lights, group.outside_back_lights
+  - service: lock.lock
+    entity_id: group.locks
+  - service: cover.close_cover
+    entity_id: cover.garage_door
+
+alarm_arm_stay:
+  sequence:
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.buck_creek
+  - service: shell_command.bi_away
+  - service: homeassistant.turn_off
+    entity_id: group.inside_lights
+  - service: lock.lock
+    entity_id: group.locks
+  - service: script.turn_on
+    entity_id: script.nest_eco
+
+welcome_home:
+  sequence:
+    - service: alarm_control_panel.alarm_arm_disarm
+      entity_id: alarm_control_panel.buck_creek
+      data:
+        code: !secret envisalinkcode
+    - service: climate.set_operation_mode
+      data_template:
+        operation_mode: '{{ states.input_text.nest_mode.state }}'
+
+nest_eco:
+  sequence:
+    # Save the current mode for Nest so we can restore it later
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.nest_mode
+        value: '{{ states.climate.downstairs_downstairs.attributes.operation_mode }}'
+    # Set Nest to Eco mode
+    - service: climate.set_operation_mode
+      data:
+              #entity_id: climate.house_nest
+        operation_mode: 'eco'
+
+nest_home:
+  sequence:
+  # Restore Nest to the orgional mode
+   service: climate.set_operation_mode
+   data_template:
+           #entity_id: climate.house_nest
+     operation_mode: '{{ states.input_text.nest_mode.state }}'
+

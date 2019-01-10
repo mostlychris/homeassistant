@@ -1,0 +1,110 @@
+  - platform: wunderground
+    api_key: !secret wundergroundapi
+    monitored_conditions:
+      - alerts
+      - feelslike_f
+      - observation_time
+      - precip_today_in
+      - temp_f
+      - weather_1d
+      - weather_1n
+      - weather_2d
+      - weather_2n
+      - weather_3d
+      - weather_3n
+      - weather_4d
+      - weather_4n
+      - precip_1d
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_use
+      - type: load_5m
+      - type: last_boot
+      - type: processor_use
+      - type: network_in
+      - type: network_out
+
+  - platform: template
+    sensors:
+      batt_frontdoor:
+        friendly_name: 'Front Door Battery'
+        value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        device_class: battery
+
+  - platform: template
+    sensors:
+      batt_backdoor:
+        friendly_name: 'Back Door Battery'
+        value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        device_class: battery
+
+  - platform: template
+    sensors:
+      kitch_last_tripped:
+        friendly_name: 'Kitchen Motion Last Tripped'
+        value_template: '{{ states.binary_sensor.kitchen_living_motion.attributes.last_tripped_time }}'
+
+  - platform: template
+    sensors:
+      downstairs_away_mode:
+        friendly_name: "Downstairs Away"
+        value_template: >
+          {% if is_state_attr('climate.downstairs_downstairs', 'away_mode', 'off') %}
+            home
+          {% else %}
+            not_home
+          {% endif %}
+
+  - platform: template
+    sensors:
+      upstairs_away_mode:
+        friendly_name: "Upstairs Away"
+        value_template: >
+          {% if is_state_attr('climate.upstairs_upstairs', 'away_mode', 'off') %}
+            home
+          {% else %}
+            not_home
+          {% endif %}
+
+  - platform: pi_hole
+    host: 172.16.1.115
+    monitored_conditions:
+      - ads_blocked_today
+      - ads_percentage_today
+      - dns_queries_today
+      - unique_clients
+      - unique_domains
+
+  - platform: plex
+    host: 172.16.1.25
+    username: !secret plexuser
+    password: !secret plexpass
+
+  - platform: google_travel_time
+    name: "To Home"
+    api_key: !secret google_api
+    origin: zone.work
+    destination: zone.home
+    scan_interval: 600
+
+  - platform: google_travel_time
+    name: "To Work"
+    api_key: !secret google_api
+    origin: zone.home
+    destination: zone.work
+    scan_interval: 600
+
+  - platform: cert_expiry
+    host: !secret cert_domain
+    port: 8123
+
+  - platform: launch_library
+
+  - platform: flunearyou
+
+
