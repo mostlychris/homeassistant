@@ -222,6 +222,8 @@ views:
             name: ADSB
           - entity: switch.attic_switch
             name: Attic Switch
+          - entity: switch.washing_machine
+            name: Washer
             
             
 ##############
