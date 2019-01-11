@@ -477,11 +477,11 @@ views:
             name: Proc Use
       - type: entities 
         entities:
-          - entity: sensor.pihole_dns_unique_clients
-          - entity: sensor.pihole_dns_unique_domains
-          - entity: sensor.pihole_ads_percentage_blocked_today
-          - entity: sensor.pihole_ads_blocked_today
-          - entity: sensor.pihole_dns_queries_today
+          - entity: sensor.pi_hole_dns_unique_clients
+          - entity: sensor.pi_hole_dns_unique_domains
+          - entity: sensor.pi_hole_ads_percentage_blocked_today
+          - entity: sensor.pi_hole_ads_blocked_today
+          - entity: sensor.pi_hole_dns_queries_today
 
 ###############
 ## MISC PAGE ##
