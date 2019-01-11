@@ -172,3 +172,12 @@ neato:
 ring:
   username: !secret ringuser
   password: !secret ringpass
+  
+influxdb:
+  host: 172.16.1.180
+  port: 8086
+  database: home_assistant
+  username: homeassistant
+  password: homeassistant
+  max_retries: 3
+  default_measurement: state
