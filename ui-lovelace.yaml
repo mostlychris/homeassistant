@@ -3,6 +3,12 @@
 #    type: module
 #- url: /local/simple-thermostat/simple-thermostat.js?v=1.01
 #  type: module
+
+
+###############
+## HOME PAGE ##
+###############
+
 title: Home
 views:
   - title: Home 
@@ -217,8 +223,9 @@ views:
           - entity: switch.attic_switch
             name: Attic Switch
             
+            
 ##############
-#Weather Card#
+#Weather Page#
 ##############
 
   - title: Weather
@@ -249,7 +256,6 @@ views:
           - sensor.pws_weather_3n
           - sensor.pws_weather_4d
           - sensor.pws_weather_4n
-
       - type: vertical-stack
         cards:
           - type: history-graph
@@ -268,6 +274,11 @@ views:
             hours_to_show: 24
       - type: picture-entity
         entity: camera.generic_camera
+
+#################
+## CAMERA PAGE ##
+#################
+
   - title: Cameras 
     icon: mdi:cctv
     cards:
@@ -283,6 +294,11 @@ views:
         entity: camera.backyrd2
       - type: picture-entity
         entity: camera.garage
+
+#################
+## SENSOR PAGE ##
+#################
+
   - title: Sensors 
     icon: mdi:smoke-detector
     cards:
@@ -361,6 +377,11 @@ views:
             - entity: vacuum.clarence
         - type: picture-entity
           entity: camera.clarence_cleaning_map
+
+###############################
+## PRESENCE and MAPPING PAGE ##
+###############################
+
   - title: Presence 
     icon: mdi:map-marker
     cards:
@@ -434,6 +455,11 @@ views:
           - device_tracker.chriss9_phone
           - zone.home
           - zone.work
+
+######################
+## SYSTEM INFO PAGE ##
+######################
+
   - title: System
     icon: mdi:desktop-classic
     cards:
@@ -441,7 +467,7 @@ views:
         entities:
           - entity: sensor.ssl_certificate_expiry
             name: Let's Encrypt Cert  
-          - entity: sensor.disk_use_percent_
+          - entity: sensor.disk_use_percent
             name: Disk Use
           - entity: sensor.load_5m
             name: Load 5m
@@ -456,6 +482,11 @@ views:
           - entity: sensor.pihole_ads_percentage_blocked_today
           - entity: sensor.pihole_ads_blocked_today
           - entity: sensor.pihole_dns_queries_today
+
+###############
+## MISC PAGE ##
+###############
+
   - title: Other
     icon: mdi:space-invaders
     cards:
