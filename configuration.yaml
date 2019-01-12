@@ -69,7 +69,16 @@ panel_iframe:
   configurator:
     title: Configurator
     icon: mdi:wrench
-    url: http://172.16.1.180:3218
+    url: https://172.16.1.180:3218
+  ide:
+    title: IDE
+    icon: mdi:atom
+    url: https://ha.mostlychris.com:8321/ide.html
+  grafana:
+    title: Grafana
+    icon: mdi:finance
+    url: https://ha.mostlychris.com:3000/ 
+
 
 nest:
   client_id: !secret nestclientid

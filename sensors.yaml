@@ -15,6 +15,7 @@
       - weather_4d
       - weather_4n
       - precip_1d
+    
 
   - platform: systemmonitor
     resources:
@@ -40,6 +41,14 @@
       batt_backdoor:
         friendly_name: 'Back Door Battery'
         value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        device_class: battery
+  
+  - platform: template
+    sensors:
+      batt_fridge_door:
+        friendly_name: 'Fridge Door Battery'
+        value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}'
         unit_of_measurement: '%'
         device_class: battery
 
@@ -91,6 +100,7 @@
     origin: zone.work
     destination: zone.home
     scan_interval: 600
+    
 
   - platform: google_travel_time
     name: "To Work"
@@ -98,7 +108,8 @@
     origin: zone.home
     destination: zone.work
     scan_interval: 600
-
+    
+    
   - platform: cert_expiry
     host: !secret cert_domain
     port: 8123
