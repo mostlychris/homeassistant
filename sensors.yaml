@@ -50,8 +50,8 @@
     sensors:
       batt_fridge_door:
         friendly_name: 'Fridge Door Battery'
-        value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}'
         entity_id: zwave.ingersoll_rand_dwzwave1
+        value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}'
         unit_of_measurement: '%'
         device_class: battery
 
@@ -127,6 +127,13 @@
     unit_of_measurement: "C"
     value_template: '{{ value | multiply(0.001) | round(1) }}'
   
-  
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'  
 
 
