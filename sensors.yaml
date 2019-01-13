@@ -33,6 +33,7 @@
       batt_frontdoor:
         friendly_name: 'Front Door Battery'
         value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level }}'
+        entity_id: zwave.kwikset_touchpad_electronic_deadbolt_10
         unit_of_measurement: '%'
         device_class: battery
 
@@ -41,6 +42,7 @@
       batt_backdoor:
         friendly_name: 'Back Door Battery'
         value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}'
+        entity_id: zwave.kwikset_touchpad_electronic_deadbolt_11
         unit_of_measurement: '%'
         device_class: battery
   
@@ -49,6 +51,7 @@
       batt_fridge_door:
         friendly_name: 'Fridge Door Battery'
         value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}'
+        entity_id: zwave.ingersoll_rand_dwzwave1
         unit_of_measurement: '%'
         device_class: battery
 
@@ -117,5 +120,13 @@
   - platform: launch_library
 
   - platform: flunearyou
+  
+  - platform: command_line
+    name: CPU Temp
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+  
+  
 
 
