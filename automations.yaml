@@ -359,3 +359,12 @@
       data:
         sound: pianobar
         priority: 0
+
+- alias: 'fridge_battery_update'
+  trigger:
+    - platform: time
+      minutes: '/5'
+      seconds: 0
+  action:
+    - service: homeassistant.update_entity
+      entity_id: sensor.batt_fridge_door
