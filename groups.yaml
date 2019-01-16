@@ -118,7 +118,7 @@ Sensors:
 
 chris_presence:
   - device_tracker.449160859d18
-  - device_tracker.chriss9_phone
+  - device_tracker.chris_s9
 
 family_presence:
   - device_tracker.449160b9e8ef

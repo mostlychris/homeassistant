@@ -139,4 +139,4 @@
 
   - platform: uptime
     name: Hass Uptime
-    
+    unit_of_measurement: hours

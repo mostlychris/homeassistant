@@ -158,17 +158,8 @@ device_tracker:
     mqtt_topic: "owntracks/#"
     events_only: true
 
-zone:
-  - name: Work
-    latitude: 29.5079588
-    longitude: -98.3924721
-    radius: 500
-    icon: mdi:castle
-  - name: Home
-    latitude: !secret latitude
-    longitude: !secret longitude
-    radius: 300
-    icon: mdi:home
+zone: !include zones.yaml
+  
 
 timer:
   fridge_door_open:

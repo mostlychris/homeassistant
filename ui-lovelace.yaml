@@ -397,6 +397,8 @@ views:
             name: ADSB
           - entity: group.family_presence
             name: "All Devices"
+          - entity: device_tracker.chris_s9
+            name: CJ
         hours_to_show: 8
       - type: entity-filter
         show_state: true
@@ -404,22 +406,25 @@ views:
           - entity: device_tracker.adsb
             icon: mdi:laptop
           - entity: device_tracker.attic_pc
-            icon: mdi:laptop
+            icon: mdi:desktop-tower
             #- entity: device_tracker.449160859d18
             #  name: Chris
             #  icon: mdi:cellphone-android
           - entity: device_tracker.449160b9e8ef
             name: Allyson
             icon: mdi:cellphone-android
-            #- entity: device_tracker.chriss9_phone
-            #  name: Chris OT
-            #  icon: mdi:cellphone-android
+            entity: device_tracker.chris_s9
+            name: CJ
+            icon: mdi:cellphone-android
           - entity: group.chris_presence
             name: Chris
             icon: mdi:cellphone-android
           - entity: device_tracker.ooma
             name: OOMA
             icon: mdi:phone
+          - entity: device_tracker.aprs_pi
+            name: APRS
+            icon: mdi:video-input-antenna
         state_filter:
           - "home"
           - "work"
@@ -454,7 +459,7 @@ views:
         aspect_ratio: 4:3
         default_zoom: 16
         entities:
-          - device_tracker.chriss9_phone
+          - device_tracker.chris_s9
           - zone.home
           - zone.work
 

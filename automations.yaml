@@ -7,6 +7,22 @@
     service: frontend.set_theme
     data:
       name: oxfordblue 
+
+- alias: 'Nest Home at 3pm'
+  initial_state: 'on'
+  trigger:
+      platform: time
+      at: '15:00:00'
+  action:
+    - service: script.turn_on
+      entity_id: script.nest_home
+    - service: notify.pushover
+      data:
+        title: "Nest Home"
+        message: "Nest Home"
+        data:
+          sound: pianobar
+          priority: 0
       
 - alias: 'Turn On Outside Lights at Sunset'
   initial_state: 'on'
