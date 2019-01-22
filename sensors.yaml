@@ -112,7 +112,13 @@
     origin: zone.home
     destination: zone.work
     scan_interval: 600
-    
+
+  - platform: google_travel_time
+    name: "Home From School"
+    api_key: !secret google_api
+    origin: zone.school
+    destination: zone.home
+    scan_interval: 900
     
   - platform: cert_expiry
     host: !secret cert_domain

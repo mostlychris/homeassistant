@@ -26,6 +26,8 @@ alarm_arm_night:
     entity_id: group.locks
   - service: cover.close_cover
     entity_id: cover.garage_door
+  - service: script.turn_on
+    entity_id: script.nest_home
 
 alarm_arm_stay:
   sequence:
