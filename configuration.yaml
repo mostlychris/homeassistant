@@ -77,7 +77,7 @@ panel_iframe:
   grafana:
     title: Grafana
     icon: mdi:finance
-    url: https://ha.mostlychris.com:3000/ 
+    url: https://gf.mostlychris.com:3000/ 
 
 
 nest:
@@ -174,10 +174,10 @@ ring:
   password: !secret ringpass
   
 influxdb:
-  host: 172.16.1.180
+  host: gf.mostlychris.com 
   port: 8086
   database: home_assistant
-  username: homeassistant
-  password: homeassistant
-  max_retries: 3
+  #username: homeassistant
+  #password: homeassistant
+  max_retries: 9 
   default_measurement: state
