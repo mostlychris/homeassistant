@@ -489,6 +489,11 @@ views:
           - entity: sensor.pi_hole_ads_percentage_blocked_today
           - entity: sensor.pi_hole_ads_blocked_today
           - entity: sensor.pi_hole_dns_queries_today
+      - type: entities
+        entities:
+          - entity: sensor.last_boot
+          - entity: updater.updater
+          - entity: sensor.hass_uptime
 
 ###############
 ## MISC PAGE ##

@@ -32,7 +32,11 @@
     sensors:
       batt_frontdoor:
         friendly_name: 'Front Door Battery'
-        value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level | int }}'
+        value_template: '{%if states.zwave.kwikset_touchpad_electronic_deadbolt_10 is not none %}
+          {{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level }}
+          {% else %}
+            n/a
+          {% endif %}'
         entity_id: zwave.kwikset_touchpad_electronic_deadbolt_10
         unit_of_measurement: '%'
         device_class: battery
@@ -41,7 +45,11 @@
     sensors:
       batt_backdoor:
         friendly_name: 'Back Door Battery'
-        value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level | int }}'
+        value_template: '{%if states.zwave.kwikset_touchpad_electronic_deadbolt_11 is not none %}
+          {{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}
+          {% else %}
+            n/a
+          {% endif %}'
         entity_id: zwave.kwikset_touchpad_electronic_deadbolt_11
         unit_of_measurement: '%'
         device_class: battery
@@ -51,6 +59,11 @@
       batt_fridge_door:
         friendly_name: 'Fridge Door Battery'
         entity_id: zwave.ingersoll_rand_dwzwave1
+        value_template: '{%if states.zwave.ingersoll_rand_dwzwave1 is not none %}
+          {{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}
+          {% else %}
+            n/a
+          {% endif %}'
         value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
         unit_of_measurement: '%'
         device_class: battery

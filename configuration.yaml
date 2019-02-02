@@ -181,3 +181,10 @@ influxdb:
   #password: homeassistant
   max_retries: 9 
   default_measurement: state
+  
+rachio:
+  api_key: 62052056-d7aa-4291-a1ae-3c1119c59d6f
+  manual_run_mins: 30
+  
+recorder:
+  purge_keep_days: 2
