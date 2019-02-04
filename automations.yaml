@@ -17,9 +17,10 @@
     - service: script.turn_on
       entity_id: script.nest_home
     - service: notify.pushover
-      data:
+      data_template:
         title: "Nest Home"
-        message: "Nest Home"
+        message: >
+          "Nest Home {{ states.input_text.nest_mode.state }}"
         data:
           sound: pianobar
           priority: 0
@@ -380,7 +381,7 @@
   initial_state: 'on'
   trigger:
     - platform: time
-      minutes: '/5'
+      minutes: '/30'
       seconds: 0
   action:
     - service: input_boolean.toggle 

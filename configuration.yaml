@@ -187,7 +187,7 @@ influxdb:
   default_measurement: state
   
 rachio:
-  api_key: !secret rachio_key
+  api_key: !secret rachio_api
   manual_run_mins: 30
   
 recorder:

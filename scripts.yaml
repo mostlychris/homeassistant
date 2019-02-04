@@ -61,7 +61,6 @@ nest_eco:
     # Set Nest to Eco mode
     - service: climate.set_operation_mode
       data:
-              #entity_id: climate.house_nest
         operation_mode: 'eco'
 
 nest_home:
