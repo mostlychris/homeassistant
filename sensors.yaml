@@ -37,7 +37,7 @@
           {% else %}
             n/a
           {% endif %}'
-        entity_id: zwave.kwikset_touchpad_electronic_deadbolt_10
+        entity_id: input_boolean.update_battery_level 
         unit_of_measurement: '%'
         device_class: battery
 

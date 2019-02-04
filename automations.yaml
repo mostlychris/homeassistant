@@ -376,17 +376,18 @@
         sound: pianobar
         priority: 0
 
-- alias: 'fridge_battery_update'
+- alias: 'Front Door Battery Update'
+  initial_state: 'on'
   trigger:
     - platform: time
       minutes: '/5'
       seconds: 0
   action:
-    - service: homeassistant.update_entity
-      entity_id: sensor.batt_fridge_door
+    - service: input_boolean.toggle 
+      entity_id: input_boolean.update_battery_level
       
 - alias: 'Restart HA'
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     platform: time
     at: '18:05:00'

@@ -139,6 +139,10 @@ input_text:
   nest_mode:
     name: Heating/Cooling Mode
 
+input_boolean:
+  update_battery_level:
+    name: Update Battery Level
+
 lovelace:
   mode: yaml
 
@@ -183,7 +187,7 @@ influxdb:
   default_measurement: state
   
 rachio:
-  api_key: 62052056-d7aa-4291-a1ae-3c1119c59d6f
+  api_key: !secret rachio_key
   manual_run_mins: 30
   
 recorder:
