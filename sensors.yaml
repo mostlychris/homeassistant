@@ -73,7 +73,7 @@
       kitch_last_tripped:
         entity_id: zwave.kitchen_living_motion
         friendly_name: 'Kitchen Motion Last Tripped'
-        value_template: "{{ as_timestamp( states.binary_sensor.kitchen_living_motion.attributes.last_tripped_time ) | timestamp_custom('%-I:%M %p')}}"
+        value_template: "{{ as_timestamp( states.binary_sensor.kitchen_living_motion.attributes.last_tripped_time ) | timestamp_custom('%I:%M %p')}}"
 
   - platform: template
     sensors:

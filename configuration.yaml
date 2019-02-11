@@ -192,3 +192,10 @@ rachio:
   
 recorder:
   purge_keep_days: 2
+
+utility_meter:
+  energy:
+    source: sensor.aeotec_dsb28_home_energy_meter_2nd_edition_energy
+    cycle: monthly
+
+system_health:

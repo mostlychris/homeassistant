@@ -380,7 +380,7 @@
 - alias: 'Front Door Battery Update'
   initial_state: 'on'
   trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/30'
       seconds: 0
   action:
