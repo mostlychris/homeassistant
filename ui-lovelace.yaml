@@ -1,7 +1,13 @@
 resources:
   - url: /local/mini-graph-card-bundle.js?v=0.2.2
     type: module
+    
+  - url: /local/custom-lovelace/card-tools.js?v=0.4
+    type: js
 
+  - url: /local/custom-lovelace/fold-entity-row.js?v=0.86
+    type: js
+    
 title: Home 
 views:
   - !include home.yaml
