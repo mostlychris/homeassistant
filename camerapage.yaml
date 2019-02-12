@@ -1,0 +1,15 @@
+title: Cameras 
+icon: mdi:cctv
+cards:
+  - type: picture-entity
+    entity: camera.driveway
+  - type: picture-entity
+    entity: camera.frontprch
+  - type: picture-entity
+    entity: camera.front_door
+  - type: picture-entity
+    entity: camera.backprch
+  - type: picture-entity
+    entity: camera.backyrd2
+  - type: picture-entity
+    entity: camera.garage

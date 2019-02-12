@@ -1,0 +1,7 @@
+title: Other
+icon: mdi:space-invaders
+cards:
+  - type: entities
+    entities:
+      - entity: sensor.avian_flu_symptoms
+      - entity: sensor.next_launch

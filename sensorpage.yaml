@@ -1,0 +1,78 @@
+title: Sensors 
+icon: mdi:smoke-detector
+cards:
+  - type: entities
+    entities:
+      - entity: sensor.kitch_last_tripped
+        name: Kitch Last Tripped
+  - type: history-graph
+    entities:
+            #- entity: binary_sensor.kitchen_living_motion
+            #  name: "Kitch/Dine"
+      - entity: cover.garage_door
+        name: "Garage"
+      - entity: binary_sensor.back_doore_entry
+        name: "Bk Door"
+      - entity: binary_sensor.front_garage_door_entry
+        name: "Frnt/Grge"
+      - entity: binary_sensor.ingersoll_rand_dwzwave1_sensor
+        name: "Frdg Door"
+    hours_to_show: 4 
+  - type: history-graph
+    entities:
+      - entity: sensor.downstairs_thermostat_downstairs_hvac_state
+        name: DN
+      - entity: sensor.upstairs_thermostat_upstairs_hvac_state
+        name: UP 
+    hours_to_show: 12
+  - type: glance 
+    entities:
+      - entity: binary_sensor.front_hall_motion
+        name: "Front Hall" 
+      - entity: binary_sensor.kitchen_living_motion
+        name: "Kitchen"
+      - entity: binary_sensor.upstairs_motion
+        name: "Upstairs"
+      - entity: binary_sensor.buck_creek_away
+        name: "Nest Away"
+  - type: glance 
+    entities:
+      - entity: binary_sensor.kitchen_dining_windows
+        name: "Kch/Dine" 
+      - entity: binary_sensor.living_room_windows
+        name: "Living"
+      - entity: binary_sensor.master_windows
+        name: "Master"
+      - entity: binary_sensor.study_windows
+        name: "Study"
+  - type: glance 
+    entities:
+      - entity: binary_sensor.back_doore_entry
+        name: "Back" 
+      - entity: binary_sensor.front_garage_door_entry
+        name: "Frnt/Grge" 
+      - entity: cover.garage_door
+        name: "Garage"
+      - entity: binary_sensor.ingersoll_rand_dwzwave1_sensor
+        name: "Fridge"
+  - type: glance
+    entities:
+      - entity: sensor.connor_room_nest_protect_color_status
+        name: "Connor"
+        icon: mdi:smoke-detector
+      - entity: sensor.living_room_nest_protect_color_status
+        name: "Living Rm"
+        icon: mdi:smoke-detector
+      - entity: sensor.upstairs_nest_protect_color_status
+        name: "Up Hall"
+        icon: mdi:smoke-detector
+  - type: vertical-stack
+    cards:
+    - type: entities 
+      entities:
+        - entity: sensor.plex
+    - type: entities
+      entities: 
+        - entity: vacuum.clarence
+    - type: picture-entity
+      entity: camera.clarence_cleaning_map

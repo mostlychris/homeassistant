@@ -1,0 +1,218 @@
+title: Home 
+icon: mdi:castle
+cards:
+  - type: entity-filter
+    entities:
+      - entity: switch.kitchen_counter
+        icon: mdi:lightbulb
+        name: Ktch Cntr
+        tap_action:
+          action: toggle
+      - entity: switch.kitchen_island
+        icon: mdi:lightbulb
+        name: Ktch Isld
+        tap_action:
+          action: toggle
+      - entity: switch.play_room_light
+        icon: mdi:lightbulb
+        name: Play Rm
+        tap_action:
+          action: toggle
+      - entity: switch.deck_lights
+        icon: mdi:lightbulb
+        name: Deck
+        tap_action:
+          action: toggle
+      - entity: switch.front_porch_lights
+        icon: mdi:lightbulb
+        name: F Prch
+        tap_action:
+          action: toggle
+      - entity: switch.driveway_lights
+        icon: mdi:lightbulb
+        name: Drvwy
+        tap_action:
+          action: toggle
+      - entity: switch.front_hall_lights
+        icon: mdi:lightbulb
+        name: F Hall
+        tap_action:
+          action: toggle
+      - entity: switch.back_porch_lights
+        icon: mdi:lightbulb
+        name: B Prch
+        tap_action:
+          action: toggle
+      - entity: switch.study_light
+        icon: mdi:lightbulb
+        name: Study
+        tap_action:
+          action: toggle
+      - entity: switch.living_room_lamp
+        icon: mdi:lightbulb
+        name: Lv Rm Lmp
+        tap_action:
+          action: toggle
+    state_filter:
+      - "on"
+    card: 
+      type: glance
+      show_state: false
+      columns: 3
+  - type: glance
+    state_filter:
+      - "detected"
+      - "on"
+    entities:
+      - entity: binary_sensor.front_hall_motion
+        name: "Front Hall" 
+      - entity: binary_sensor.kitchen_living_motion
+        name: "Kitchen"
+      - entity: binary_sensor.upstairs_motion
+        name: "Upstairs"
+      - entity: binary_sensor.buck_creek_away
+        name: "Nest Away"
+        #      - type: entities
+        #        entities:
+        #          - entity: group.door_status
+        #            icon: mdi:door
+        #          - entity: alarm_control_panel.buck_creek
+        #          - entity: group.motion_sensors
+  - type: glance
+    show_state: false
+    entities:
+      - entity: script.alarm_arm_night
+        name: Arm Night
+        tap_action:
+          action: toggle
+        icon: mdi:weather-night
+      - entity: script.alarm_arm_stay
+        name: Arm Stay
+        tap_action:
+          action: toggle
+        icon: mdi:home-account
+      - entity: script.alarm_arm_away
+        name: Arm Away
+        tap_action:
+          action: toggle
+        icon: mdi:home-lock
+      - entity: alarm_control_panel.buck_creek
+        Name: Alarm
+   #- type: alarm-panel
+   #  name: Alarm
+   #  entity: alarm_control_panel.buck_creek
+  - type: glance
+    show_state: false
+    entities:
+    - entity: lock.front_door_lock
+      name: Front
+      tap_action:
+        action: toggle
+    - entity: sensor.batt_frontdoor
+      name: Batt 
+    - entity: lock.back_door_lock
+      name: Back
+      #icon: mdi:lock
+      tap_action:
+        action: toggle
+    - entity: sensor.batt_backdoor
+      name: Batt
+    - entity: cover.garage_door
+      name: Garage
+  - type: vertical-stack
+    cards:
+    - type: glance
+      entities:
+        - entity: sensor.downstairs_thermostat_downstairs_hvac_state
+          name: Downstairs
+          icon: mdi:air-conditioner
+        - entity: binary_sensor.downstairs_thermostat_downstairs_fan
+          name: DN Fan
+          icon: mdi:fan
+        - entity: sensor.upstairs_thermostat_upstairs_hvac_state
+          name: Upstairs
+          icon: mdi:air-conditioner
+        - entity: binary_sensor.upstairs_thermostat_upstairs_fan
+          name: UP Fan
+          icon: mdi:fan
+        - entity: script.nest_eco
+  - type: vertical-stack
+    cards:
+      - type: thermostat
+        entity: climate.downstairs_downstairs
+        name: Downstairs
+      - type: thermostat
+        entity: climate.upstairs_upstairs
+        name: Upstairs
+      - type: glance
+        entities:
+          - entity: input_text.nest_mode
+  - type: glance
+    columns: 3
+    show_state: false
+    entities:
+    - entity: switch.kitchen_island
+      name: Island
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.kitchen_counter
+      name: Counter
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.front_hall_lights
+      name: Front Hall
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.study_light
+      name: Study
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.play_room_light
+      name: Play Rm
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.living_room_lamp
+      name: Lvng Rm Lmp
+      icon: mdi:lamp
+      tap_action:
+        action: toggle
+  - type: glance
+    columns: 4
+    show_state: false
+    entities:
+    - entity: switch.deck_lights
+      name: Deck
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.back_porch_lights
+      name: Back Porch
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.front_porch_lights
+      name: Front Porch
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+    - entity: switch.driveway_lights
+      name: Driveway
+      icon: mdi:lightbulb
+      tap_action:
+        action: toggle
+  - type: glance
+    show_state: false
+    entities:
+      - entity: switch.adsb
+        name: ADSB
+      - entity: switch.attic_switch
+        name: Attic Switch
+      - entity: switch.washing_machine
+        name: Washer
+          
+          

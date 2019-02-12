@@ -1,0 +1,78 @@
+title: Presence 
+icon: mdi:map-marker
+cards:
+  - type: history-graph
+    entities:
+      - entity: group.chris_presence
+        name: "Chris"
+      - entity: device_tracker.449160b9e8ef
+        name: "Allyson"
+      - entity: device_tracker.adsb
+        name: ADSB
+      - entity: group.family_presence
+        name: "All Devices"
+      - entity: device_tracker.chris_s9
+        name: CJ
+    hours_to_show: 8
+  - type: entity-filter
+    show_state: true
+    entities:
+      - entity: device_tracker.adsb
+        icon: mdi:laptop
+      - entity: device_tracker.attic_pc
+        icon: mdi:desktop-tower
+        #- entity: device_tracker.449160859d18
+        #  name: Chris
+        #  icon: mdi:cellphone-android
+      - entity: device_tracker.449160b9e8ef
+        name: Allyson
+        icon: mdi:cellphone-android
+        entity: device_tracker.chris_s9
+        name: CJ
+        icon: mdi:cellphone-android
+      - entity: group.chris_presence
+        name: Chris
+        icon: mdi:cellphone-android
+      - entity: device_tracker.ooma
+        name: OOMA
+        icon: mdi:phone
+      - entity: device_tracker.aprs_pi
+        name: APRS
+        icon: mdi:video-input-antenna
+    state_filter:
+      - "home"
+      - "work"
+    card:
+      type: glance
+      show_state: true
+  - type: glance
+    entities:
+      - entity: sensor.downstairs_away_mode
+        name: "Downstairs"
+      - entity: sensor.upstairs_away_mode
+        name: "Upstairs"
+      - entity: sensor.to_home
+        name: "Home"
+        icon: mdi:car
+      - entity: sensor.to_work
+        name: "Work"
+        icon: mdi:car
+  - type: vertical-stack
+    cards:
+    - type: history-graph
+      entities:
+        - entity: sensor.to_home
+          name: "To Home"
+      hours_to_show: 48
+    - type: history-graph
+      entities:
+        - entity: sensor.to_work
+          name: "To Work"
+      hours_to_show: 48
+  - type: map
+    aspect_ratio: 4:3
+    default_zoom: 16
+    entities:
+      - device_tracker.chris_s9
+      - zone.home
+      - zone.work
