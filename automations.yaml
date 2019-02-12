@@ -6,7 +6,7 @@
   action:
     service: frontend.set_theme
     data:
-      name: oxfordblue 
+      name: oxfordblue
 
 - alias: 'Nest Home at 3pm'
   initial_state: 'on'

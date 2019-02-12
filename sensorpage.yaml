@@ -3,6 +3,35 @@ icon: mdi:smoke-detector
 cards:
   - type: vertical-stack
     cards:
+      - type: horizontal-stack
+        cards:
+          - type: conditional
+            conditions:
+              - entity: device_tracker.449160b9e8ef
+                state: "home"
+            card:
+              type: glance
+              entities: 
+                - entity: device_tracker.449160b9e8ef
+                  name: Allyson
+          - type: conditional
+            conditions:
+              - entity: group.chris_presence
+                state: "home"
+            card:
+              type: glance
+              entities: 
+                - entity: group.chris_presence
+                  name: Chris
+          - type: conditional
+            conditions:
+              - entity: sensor.washer_running
+                name: Washer On
+                state: "on"
+            card:
+              type: glance
+              entities:
+                - entity: sensor.washer_running
       - type: entity-filter
         entities:
           - entity: binary_sensor.kitchen_living_motion
@@ -10,51 +39,60 @@ cards:
           - entity: binary_sensor.front_hall_motion
         state_filter:
           - "on"
-      - type: alarm-panel
-        entity: alarm_control_panel.buck_creek
-        scale: 10px
+        card:
+          type: glance
+
       - type: horizontal-stack
         cards:
           - type: custom:mini-graph-card
             entity: sensor.to_home
-            unit: minutes
+            unit: min
             icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
             line_color_above:
-              - value: 35
-                color: yellow
-              - value: 40
+              - value: 34
+                color: gold
+              - value: 39
                 color: orange
-              - value: 45
+              - value: 44
                 color: red
             line_color_below:
-              - value: 35
+              - value: 36
                 color: green
             name: To Home
           - type: custom:mini-graph-card
             entity: sensor.to_work
-            unit: minutes
+            unit: min
             icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
             line_color_above:
-              - value: 35
-                color: yellow
-              - value: 40
+              - value: 34
+                color: gold
+              - value: 39
                 color: orange
-              - value: 45
+              - value: 44
                 color: red
             line_color_below:
-              - value: 35
+              - value: 36
                 color: green
             name: To Work
           - type: custom:mini-graph-card
             entity: sensor.home_from_school
-            unit: minutes
+            unit: min
             icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
             line_color_above:
-              - value: 35
+              - value: 19
                 color: yellow
-              - value: 40
+              - value: 24
                 color: orange
-              - value: 45
+              - value: 30
                 color: red
             line_color_below:
               - value: 35
@@ -116,16 +154,48 @@ cards:
             line_color_below:
               - value: 72
                 color: green
-              - value: 67
-                color: lightblue
-              - value: 56
+              - value: 66
                 color: blue
               - value: 49
                 color: darkblue
+      - type: horizontal-stack
+        cards:
           - type: custom:mini-graph-card
             entity: sensor.pws_precip_today_in
             name: 24 hr Precip
-            font_size: 70
+            font_size: 7
+          - type: glance
+            entities:
+              - entity: input_text.nest_mode
+      - type: alarm-panel
+        entity: alarm_control_panel.buck_creek
+        scale: 10px
+      - type: horizontal-stack
+        cards:
+          - type: glance
+            show_state: false
+            entities:
+              - entity: script.alarm_arm_night
+                name: Arm Night
+                tap_action:
+                  action: toggle
+                icon: mdi:weather-night
+          - type: glance
+            show_state: false
+            entities:
+              - entity: script.alarm_arm_stay
+                name: Arm Stay
+                tap_action:
+                  action: toggle
+                icon: mdi:home-account
+          - type: glance
+            show_state: false
+            entities:
+              - entity: script.alarm_arm_away
+                name: Arm Away
+                tap_action:
+                  action: toggle
+                icon: mdi:home-lock
       - type: entities
         entities:
           - type: custom:fold-entity-row

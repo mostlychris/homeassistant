@@ -96,6 +96,17 @@
           {% else %}
             not_home
           {% endif %}
+          
+  - platform: template
+    sensors:
+      washer_running:
+        friendly_name: "Washer Running"
+        value_template: >
+          {% if states.sensor.aeotec_dsc06106_smart_energy_switch_power_7.state | int < 10 %}
+            off
+          {% else %}
+            on
+          {% endif %}
 
   - platform: pi_hole
     host: 172.16.1.115
