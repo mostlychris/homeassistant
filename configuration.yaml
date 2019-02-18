@@ -199,3 +199,9 @@ utility_meter:
     cycle: monthly
 
 system_health:
+
+media_player:
+  - platform: alexa
+    email: !secret alexa_email
+    password: !secret alexa_password
+    url: "amazon.com"
