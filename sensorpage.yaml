@@ -9,20 +9,25 @@ cards:
             conditions:
               - entity: device_tracker.449160b9e8ef
                 state: "home"
+                icon: mdi:home
             card:
               type: glance
+              show_state: false
               entities: 
                 - entity: device_tracker.449160b9e8ef
                   name: Allyson
+                  icon: mdi:home
           - type: conditional
             conditions:
               - entity: group.chris_presence
                 state: "home"
             card:
               type: glance
+              show_state: false
               entities: 
                 - entity: group.chris_presence
                   name: Chris
+                  icon: mdi:home
           - type: conditional
             conditions:
               - entity: sensor.washer_running
@@ -30,8 +35,10 @@ cards:
                 state: "on"
             card:
               type: glance
+              show_state: false
               entities:
                 - entity: sensor.washer_running
+                  icon: mdi:washing-machine
       - type: entity-filter
         entities:
           - entity: binary_sensor.kitchen_living_motion
@@ -42,62 +49,7 @@ cards:
         card:
           type: glance
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:mini-graph-card
-            entity: sensor.to_home
-            unit: min
-            icon: mdi:car-pickup
-            points_per_hour: 4
-            show:
-              icon: false
-            line_color_above:
-              - value: 34
-                color: gold
-              - value: 39
-                color: orange
-              - value: 44
-                color: red
-            line_color_below:
-              - value: 36
-                color: green
-            name: To Home
-          - type: custom:mini-graph-card
-            entity: sensor.to_work
-            unit: min
-            icon: mdi:car-pickup
-            points_per_hour: 4
-            show:
-              icon: false
-            line_color_above:
-              - value: 34
-                color: gold
-              - value: 39
-                color: orange
-              - value: 44
-                color: red
-            line_color_below:
-              - value: 36
-                color: green
-            name: To Work
-          - type: custom:mini-graph-card
-            entity: sensor.home_from_school
-            unit: min
-            icon: mdi:car-pickup
-            points_per_hour: 4
-            show:
-              icon: false
-            line_color_above:
-              - value: 19
-                color: yellow
-              - value: 24
-                color: orange
-              - value: 30
-                color: red
-            line_color_below:
-              - value: 35
-                color: green
-            name: Sch to Home
+
       - type: horizontal-stack
         cards:
           - type: custom:mini-graph-card
@@ -160,23 +112,94 @@ cards:
                 color: darkblue
       - type: horizontal-stack
         cards:
-          - type: custom:mini-graph-card
-            entity: sensor.pws_precip_today_in
-            name: 24 hr Precip
-            font_size: 7
+          - type: glance
+            entities:
+              - entity: sensor.downstairs_thermostat_downstairs_operation_mode
+                name: "Down"
+                icon: mdi:air-conditioner
+              - entity: sensor.upstairs_thermostat_upstairs_operation_mode
+                name: "Up"
+                icon: mdi:air-conditioner
           - type: glance
             entities:
               - entity: input_text.nest_mode
-      - type: alarm-panel
-        entity: alarm_control_panel.buck_creek
-        scale: 10px
+                name: "Nest Stored Mode"
+      - type: horizontal-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: alarm_control_panel.buck_creek
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            entity: sensor.to_home
+            unit: min
+            icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
+            line_color_above:
+              - value: 34
+                color: gold
+              - value: 39
+                color: orange
+              - value: 44
+                color: red
+            line_color_below:
+              - value: 36
+                color: green
+            name: To Home
+          - type: custom:mini-graph-card
+            entity: sensor.to_work
+            unit: min
+            icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
+            line_color_above:
+              - value: 34
+                color: gold
+              - value: 39
+                color: orange
+              - value: 44
+                color: red
+            line_color_below:
+              - value: 36
+                color: green
+            name: To Work
+          - type: custom:mini-graph-card
+            entity: sensor.home_from_school
+            unit: min
+            icon: mdi:car-pickup
+            points_per_hour: 4
+            show:
+              icon: false
+            line_color_above:
+              - value: 19
+                color: yellow
+              - value: 24
+                color: orange
+              - value: 30
+                color: red
+            line_color_below:
+              - value: 35
+                color: green
+            name: Sch to Home
       - type: horizontal-stack
         cards:
           - type: glance
             show_state: false
             entities:
+              - entity: script.welcome_home
+                name: Home
+                tap_action:
+                  action: toggle
+                icon: mdi:home
+          - type: glance
+            show_state: false
+            entities:
               - entity: script.alarm_arm_night
-                name: Arm Night
+                name: Night
                 tap_action:
                   action: toggle
                 icon: mdi:weather-night
@@ -184,7 +207,7 @@ cards:
             show_state: false
             entities:
               - entity: script.alarm_arm_stay
-                name: Arm Stay
+                name: Stay
                 tap_action:
                   action: toggle
                 icon: mdi:home-account
@@ -192,10 +215,81 @@ cards:
             show_state: false
             entities:
               - entity: script.alarm_arm_away
-                name: Arm Away
+                name: Away
                 tap_action:
                   action: toggle
                 icon: mdi:home-lock
+      - type: horizontal-stack
+        cards:
+          - type: glance
+            columns: 2
+            show_state: false
+            entities:
+            - entity: switch.kitchen_island
+              name: Island
+              icon: mdi:lightbulb
+              tap_action:
+                action: toggle
+            - entity: switch.kitchen_counter
+              name: Counter
+              icon: mdi:lightbulb
+              tap_action:
+                action: toggle
+            - entity: switch.living_room_lamp
+              name: Lvng Rm Lmp
+              icon: mdi:lamp
+              tap_action:
+                action: toggle
+            - entity: switch.bedroom_lamp
+              icon: mdi:lightbulb
+              name: My Lamp
+              tap_action:
+                action: toggle
+            - entity: switch.front_hall_lights
+              name: Front Hall
+              icon: mdi:lightbulb
+              tap_action:
+                action: toggle
+            - entity: switch.study_light
+              name: Study
+              icon: mdi:lightbulb
+              tap_action:
+                action: toggle
+            - entity: switch.play_room_light
+              name: Play Rm
+              icon: mdi:lightbulb
+              tap_action:
+                action: toggle
+          - type: vertical-stack
+            cards:
+              - type: glance
+                columns: 2
+                show_state: false
+                entities:
+                - entity: switch.deck_lights
+                  name: Deck
+                  icon: mdi:lightbulb
+                  tap_action:
+                    action: toggle
+                - entity: switch.back_porch_lights
+                  name: Back Porch
+                  icon: mdi:lightbulb
+                  tap_action:
+                    action: toggle
+                - entity: switch.front_porch_lights
+                  name: Front Porch
+                  icon: mdi:lightbulb
+                  tap_action:
+                    action: toggle
+                - entity: switch.driveway_lights
+                  name: Driveway
+                  icon: mdi:lightbulb
+                  tap_action:
+                    action: toggle
+              - type: glance
+                show_state: false
+                entities:
+                - entity: cover.garage_door
       - type: entities
         entities:
           - type: custom:fold-entity-row
@@ -237,13 +331,6 @@ cards:
               - binary_sensor.front_hall_motion
               - binary_sensor.kitchen_living_motion
               - binary_sensor.upstairs_motion
-      - type: history-graph
-        entities:
-          - entity: sensor.downstairs_thermostat_downstairs_hvac_state
-            name: DN
-          - entity: sensor.upstairs_thermostat_upstairs_hvac_state
-            name: UP 
-            hours_to_show: 12
       - type: glance
         entities:
           - entity: sensor.connor_room_nest_protect_color_status

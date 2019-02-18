@@ -43,13 +43,13 @@ alarm_arm_stay:
 
 welcome_home:
   sequence:
-    - service: alarm_control_panel.alarm_arm_disarm
-      entity_id: alarm_control_panel.buck_creek
-      data:
-        code: !secret envisalinkcode
-    - service: climate.set_operation_mode
-      data_template:
-        operation_mode: '{{ states.input_text.nest_mode.state }}'
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.buck_creek
+    data:
+      code: !secret envisalinkcode
+  - service: script.turn_on
+    entity_id: script.nest_home
+  - service: shell_command.bi_home
 
 nest_eco:
   sequence:
@@ -60,6 +60,7 @@ nest_eco:
         value: '{{ states.climate.downstairs_downstairs.attributes.operation_mode }}'
     # Set Nest to Eco mode
     - service: climate.set_operation_mode
+      entity_id: all
       data:
         operation_mode: 'eco'
 
@@ -67,7 +68,10 @@ nest_home:
   sequence:
   # Restore Nest to the orgional mode
    service: climate.set_operation_mode
+   entity_id: all
    data_template:
            #entity_id: climate.house_nest
      operation_mode: '{{ states.input_text.nest_mode.state }}'
+
+        
 
