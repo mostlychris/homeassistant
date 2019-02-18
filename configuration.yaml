@@ -54,12 +54,17 @@ cloud:
        - switch.living_room_lamp
        - lock.front_door_lock
        - lock.back_door_lock
+       - switch.bedroom_lampk
 
 notify:
   - name: pushover
     platform: pushover
     api_key: !secret pushoverapi
     user_key: !secret pushoveruser
+
+  - platform: command_line
+    name: "notify_kitchen_echo"
+    command: "/config/alexa_wrapper.sh -d 'Kitchen Echo'"
           
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -77,7 +82,7 @@ panel_iframe:
   grafana:
     title: Grafana
     icon: mdi:finance
-    url: https://gf.mostlychris.com:3000/ 
+    url: https://ha.mostlychris.com:3000/ 
 
 
 nest:
@@ -178,11 +183,9 @@ ring:
   password: !secret ringpass
   
 influxdb:
-  host: gf.mostlychris.com 
+  host: ha.mostlychris.com 
   port: 8086
-  database: home_assistant
-  #username: homeassistant
-  #password: homeassistant
+  database: homeassistant
   max_retries: 9 
   default_measurement: state
   

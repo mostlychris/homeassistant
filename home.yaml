@@ -53,6 +53,11 @@ cards:
         name: Lv Rm Lmp
         tap_action:
           action: toggle
+      - entity: switch.bedroom_lamp
+        icon: mdi:lightbulb
+        name: My Lamp
+        tap_action:
+          action: toggle
     state_filter:
       - "on"
     card: 
@@ -144,9 +149,6 @@ cards:
       - type: thermostat
         entity: climate.upstairs_upstairs
         name: Upstairs
-      - type: glance
-        entities:
-          - entity: input_text.nest_mode
   - type: glance
     columns: 3
     show_state: false
@@ -181,6 +183,11 @@ cards:
       icon: mdi:lamp
       tap_action:
         action: toggle
+    - entity: switch.bedroom_lamp
+      icon: mdi:lightbulb
+      name: My Lamp
+      tap_action:
+        action: toggle
   - type: glance
     columns: 4
     show_state: false
@@ -210,8 +217,6 @@ cards:
     entities:
       - entity: switch.adsb
         name: ADSB
-      - entity: switch.attic_switch
-        name: Attic Switch
       - entity: switch.washing_machine
         name: Washer
           
