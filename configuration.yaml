@@ -62,9 +62,9 @@ notify:
     api_key: !secret pushoverapi
     user_key: !secret pushoveruser
 
-  - platform: command_line
-    name: "notify_kitchen_echo"
-    command: "/config/alexa_wrapper.sh -d 'Kitchen Echo'"
+  # - platform: command_line
+  #   name: "notify_kitchen_echo"
+  #   command: 'python /config/alexa/alexa_wrapper.py -d {{ "-lastalexa" }}'
           
 group: !include groups.yaml
 automation: !include automations.yaml

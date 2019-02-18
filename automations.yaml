@@ -140,6 +140,11 @@
     - service: script.turn_on
       entity_id: script.nest_home
     - service: shell_command.bi_home
+    - service: media_player.alexa_tts
+      data:
+        entity_id:
+          - media_player.kitchen_echo
+        message: "Garage Door Open"
     - service: notify.pushover
       data:
         title: "Garage Open"
@@ -329,6 +334,11 @@
         data:
           sound: gamelan
           priority: 0
+    - service: media_player.alexa_tts
+      data:
+        entity_id:
+          - media_player.kitchen_echo
+        message: "The refrigerator door is open"
     - service: timer.start
       entity_id: timer.fridge_door_open
 
@@ -402,7 +412,7 @@
       entity_id: sensor.washer_running
       to: 'off'
       for: 
-        seconds: 30
+        seconds: 60
   action:
     - service: notify.pushover
       data:
@@ -411,7 +421,8 @@
         data:
           sound: falling
           priority: 0
-    - service: notify.notify_kitchen_echo
+    - service: media_player.alexa_tts
       data:
-        title: "The washer is done"
+        entity_id:
+          - media_player.kitchen_echo
         message: "The washing machine is done"
