@@ -33,7 +33,7 @@
     offset: "-00:15:00"
   action:
     - service: homeassistant.turn_on
-      entity_id: group.outside_back_lights, group.outside_front_lights, switch.living_room_lamp,switch.study_light,switch.bedroom_lamp
+      entity_id: group.outside_back_lights, group.outside_front_lights, switch.living_room_lamp,switch.study_light
     - service: notify.pushover
       data:
         title: "Outside Lights On"
@@ -394,24 +394,3 @@
     at: '18:05:00'
   action:
     service: homeassistant.restart
-
-- alias: "Washer finished"
-  initial_state: 'on'
-  trigger:
-    - platform: state
-      entity_id: sensor.washer_running
-      to: 'off'
-      for: 
-        seconds: 30
-  action:
-    - service: notify.pushover
-      data:
-        title: "Washer Done"
-        message: "Washer Done"
-        data:
-          sound: falling
-          priority: 0
-    - service: notify.notify_kitchen_echo
-      data:
-        title: "The washer is done"
-        message: "The washing machine is done"

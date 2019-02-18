@@ -53,7 +53,6 @@ Scripts:
   - script.alarm_arm_stay
   - script.nest_eco
   - script.nest_home
-  - switch.bedroom_lamp
 
 Inside Lights:
   - switch.study_light
@@ -62,7 +61,6 @@ Inside Lights:
   - switch.kitchen_island
   - switch.kitchen_counter  
   - switch.living_room_lamp
-  - switch.bedroom_lamp
 
 Doors:
   - lock.back_door_lock

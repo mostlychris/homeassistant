@@ -10,10 +10,10 @@ resources:
     
 title: Home 
 views:
-  - !include sensorpage.yaml
   - !include home.yaml
   - !include weather.yaml
   - !include camerapage.yaml
+  - !include sensorpage.yaml
   - !include presencepage.yaml
   - !include sysinfopage.yaml
   - !include miscpage.yaml
