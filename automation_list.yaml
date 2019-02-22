@@ -1,0 +1,22 @@
+title: Automations
+icon: mdi:home-automation
+id: automations
+cards:
+  - type: custom:monster-card
+    show_empty: false
+    card:
+      type: entities
+      title: 'On'
+    filter:
+      include:
+        - entity_id: "automation.*"
+          state: "on"
+  - type: custom:monster-card
+    show_empty: false
+    card:
+      type: entities
+      title: 'Off'
+    filter:
+      include:
+        - entity_id: "automation.*"
+          state: "off"
