@@ -131,7 +131,7 @@
     entity_id: group.Outside_Back_Lights, group.Outside_Front_Lights
     
 - alias: 'Garage Door Open'
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     platform: state
     entity_id: cover.garage_door
@@ -144,7 +144,7 @@
       data:
         entity_id:
           - media_player.kitchen_echo
-        message: "Garage Door Open"
+        message: "The garage door is open."
     - service: notify.pushover
       data:
         title: "Garage Open"
@@ -158,19 +158,24 @@
         code: !secret envisalinkcode
         
 - alias: 'Garage Door Closed'
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     platform: state
     entity_id: cover.garage_door
     to: 'closed'
   action:
-    service: notify.pushover
-    data:
-      title: "Garage Closed"
-      message: "Garage Door Closed"
+    - service: media_player.alexa_tts
       data:
-        sound: magic
-        priority: 0
+        entity_id:
+          - media_player.kitchen_echo
+        message: "The garage door is closed."
+    - service: notify.pushover
+      data:
+        title: "Garage Closed"
+        message: "Garage Door Closed"
+        data:
+          sound: magic
+          priority: 0
   
 
         #- alias: 'Front Door Unlocked with Code'
@@ -338,7 +343,7 @@
       data:
         entity_id:
           - media_player.kitchen_echo
-        message: "The refrigerator door is open"
+        message: "Yo, yo yo. The refrigerator door is opennnnnnn."
     - service: timer.start
       entity_id: timer.fridge_door_open
 
@@ -406,13 +411,13 @@
     service: homeassistant.restart
 
 - alias: "Washer finished"
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     - platform: state
       entity_id: sensor.washer_running
       to: 'off'
       for: 
-        seconds: 60
+        minutes: 3 
   action:
     - service: notify.pushover
       data:
@@ -426,3 +431,20 @@
         entity_id:
           - media_player.kitchen_echo
         message: "The washing machine is done"
+
+- alias: "START - Delay automations on restart"
+  initial_state: 'on'
+  hide_entity: false
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - delay:
+        seconds: 20
+    - service: automation.turn_on
+      entity_id: automation.washer_finished
+    - service: automation.turn_on
+      entity_id: automation.garage_door_open
+    - service: automation.turn_on
+      entity_id: automation.garage_door_closed
+

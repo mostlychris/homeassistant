@@ -83,7 +83,10 @@ panel_iframe:
     title: Grafana
     icon: mdi:finance
     url: https://ha.mostlychris.com:3000/ 
-
+  portainer:
+    title: Portainer
+    icon: mdi:harddisk
+    url: https://ha.mostlychris.com:9000/ 
 
 nest:
   client_id: !secret nestclientid
@@ -208,3 +211,13 @@ media_player:
     email: !secret alexa_email
     password: !secret alexa_password
     url: "amazon.com"
+
+speedtestdotnet:
+  scan_interval:
+    minutes: 30
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+    
+custom_updater:

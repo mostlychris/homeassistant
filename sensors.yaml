@@ -16,7 +16,7 @@
       - weather_4n
       - precip_1d
     
-
+    
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
@@ -64,7 +64,7 @@
           {% else %}
             n/a
           {% endif %}'
-        value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
+        #value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
         unit_of_measurement: '%'
         device_class: battery
 
@@ -102,7 +102,7 @@
       washer_running:
         friendly_name: "Washer Running"
         value_template: >
-          {% if states.sensor.aeotec_dsc06106_smart_energy_switch_power_7.state | int < 10 %}
+          {% if states.sensor.aeotec_dsc06106_smart_energy_switch_power_7.state | int < 6 %}
             off
           {% else %}
             on

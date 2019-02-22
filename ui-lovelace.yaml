@@ -2,11 +2,17 @@ resources:
   - url: /local/mini-graph-card-bundle.js?v=0.2.2
     type: module
     
-  - url: /local/custom-lovelace/card-tools.js?v=0.4
+  - url: /local/custom-lovelace/card-tools.js?v=0.4.1
     type: js
 
-  - url: /local/custom-lovelace/fold-entity-row.js?v=0.86
+  - url: /local/custom-lovelace/fold-entity-row.js?v=0.30
     type: js
+
+  - url: /local/custom-lovelace/monster-card.js?v=1
+    type: js
+    
+  - url: /customcards/github/custom-cards/tracker-card.js?track=true
+    type: module
     
 title: Home 
 views:
@@ -17,6 +23,7 @@ views:
   - !include presencepage.yaml
   - !include sysinfopage.yaml
   - !include miscpage.yaml
+  - !include automation_list.yaml
 
 
 
