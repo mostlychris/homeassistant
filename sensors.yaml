@@ -1,172 +1,986 @@
-  - platform: wunderground
-    api_key: !secret wundergroundapi
-    monitored_conditions:
-      - alerts
-      - feelslike_f
-      - observation_time
-      - precip_today_in
-      - temp_f
-      - weather_1d
-      - weather_1n
-      - weather_2d
-      - weather_2n
-      - weather_3d
-      - weather_3n
-      - weather_4d
-      - weather_4n
-      - precip_1d
-    
-    
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /
-      - type: memory_use
-      - type: load_5m
-      - type: last_boot
-      - type: processor_use
-      - type: network_in
-      - type: network_out
+- platform: template
+  sensors:
+    kitchen_motion_tripped:
+      friendly_name: "Kitchen Motion Tripped"
+      value_template: >-
+        {% if is_state('binary_sensor.kitchen_living_motion','on') %}
+          2
+        {% endif %}
 
-  - platform: template
-    sensors:
-      batt_frontdoor:
-        friendly_name: 'Front Door Battery'
-        value_template: '{%if states.zwave.kwikset_touchpad_electronic_deadbolt_10 is not none %}
-          {{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level }}
-          {% else %}
-            n/a
-          {% endif %}'
-        entity_id: input_boolean.update_battery_level 
-        unit_of_measurement: '%'
-        device_class: battery
+- platform: template
+  sensors:
+    guest_smoke_status:
+      friendly_name: "Guest Smoke Status"
+      value_template: >-
+        {% if is_state('sensor.guest_smoke_detector_2_alarm_level','255') and is_state('sensor.guest_smoke_detector_2_alarm_type','1') %}
+          smoke
+        {% elif is_state('sensor.guest_smoke_detector_2_alarm_level','255') and is_state('sensor.guest_smoke_detector_2_alarm_type','2') %}
+          co 
+        {% elif is_state('sensor.guest_smoke_detector_2_alarm_level','0') and is_state('sensor.guest_smoke_detector_2_alarm_type','12') %}
+          test 
+        {% elif is_state('sensor.guest_smoke_detector_2_alarm_level','255') and is_state('sensor.guest_smoke_detector_2_alarm_type','13') %}
+          idle
+        {% endif %}
 
-  - platform: template
-    sensors:
-      batt_backdoor:
-        friendly_name: 'Back Door Battery'
-        value_template: '{%if states.zwave.kwikset_touchpad_electronic_deadbolt_11 is not none %}
-          {{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}
-          {% else %}
-            n/a
-          {% endif %}'
-        entity_id: zwave.kwikset_touchpad_electronic_deadbolt_11
-        unit_of_measurement: '%'
-        device_class: battery
+- platform: template
+  sensors:
+    batt_frontdoor:
+      friendly_name: "Front Door Battery"
+      value_template:
+        "{%if states.zwave.kwikset_touchpad_electronic_deadbolt_10 is not none %}
+        {{ states.zwave.kwikset_touchpad_electronic_deadbolt_10.attributes.battery_level }}
+        {% else %}
+        n/a
+        {% endif %}"
+      entity_id: zwave.kwikset_touchpad_electronic_deadbolt_10
+      unit_of_measurement: "%"
+      device_class: battery
+
+- platform: template
+  sensors:
+    batt_backdoor:
+      friendly_name: "Back Door Battery"
+      value_template:
+        "{%if states.zwave.kwikset_touchpad_electronic_deadbolt_11 is not none %}
+        {{ states.zwave.kwikset_touchpad_electronic_deadbolt_11.attributes.battery_level }}
+        {% else %}
+        n/a
+        {% endif %}"
+      entity_id: zwave.kwikset_touchpad_electronic_deadbolt_11
+      unit_of_measurement: "%"
+      device_class: battery
+
+- platform: template
+  sensors:
+    batt_fridge_door:
+      friendly_name: "Fridge Door Battery"
+      entity_id: zwave.ingersoll_rand_dwzwave1
+      value_template: "{%if states.zwave.ingersoll_rand_dwzwave1 is not none %}
+        {{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}
+        {% else %}
+        n/a
+        {% endif %}"
+      #value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
+      unit_of_measurement: "%"
+      device_class: battery
+
+- platform: template
+  sensors:
+    batt_study_sensor:
+      friendly_name: "Study Sensor Battery"
+      entity_id: zwave.aeon_labs_zw100_multisensor_6
+      value_template:
+        "{%if states.zwave.aeon_labs_zw100_multisensor_6 is not none %}
+        {{ states.zwave.aeon_labs_zw100_multisensor_6.attributes.battery_level }}
+        {% else %}
+        n/a
+        {% endif %}"
+      #value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
+      unit_of_measurement: "%"
+      device_class: battery
+
+- platform: template
+  sensors:
+    batt_garage_sensor:
+      friendly_name: "Garage Sensor Battery"
+      entity_id: zwave.aeon_labs_zw100_multisensor_6_3
+      value_template:
+        "{%if states.zwave.aeon_labs_zw100_multisensor_6_3 is not none %}
+        {{ states.zwave.aeon_labs_zw100_multisensor_6_3.attributes.battery_level }}
+        {% else %}
+        n/a
+        {% endif %}"
+      unit_of_measurement: "%"
+      device_class: battery
+
+- platform: template
+  sensors:
+    kitch_last_tripped:
+      #entity_id: zwave.kitchen_living_motion
+      friendly_name: "Kitchen Motion Last Tripped"
+      value_template: "{{ as_timestamp( states.binary_sensor.kitchen_living_motion.attributes.last_tripped_time ) | timestamp_custom('%D %I:%M %p')}}"
+
+- platform: template
+  sensors:
+    upstairs_last_tripped:
+      friendly_name: "Upstairs Motion Last Tripped"
+      value_template: "{{ as_timestamp( states.binary_sensor.upstairs_motion.attributes.last_tripped_time ) | timestamp_custom('%D %I:%M %p')}}"
+
+- platform: template
+  sensors:
+    front_hall_last_tripped:
+      friendly_name: "Front Hall Motion Last Tripped"
+      value_template: "{{ as_timestamp( states.binary_sensor.front_hall_motion.attributes.last_tripped_time ) | timestamp_custom('%D %I:%M %p')}}"
+
+- platform: template
+  sensors:
+    study_last_tripped:
+      friendly_name: "Study Last Tripped"
+      value_template: "{{ as_timestamp( states.binary_sensor.aeon_labs_zw100_multisensor_6_sensor.last_changed ) | timestamp_custom('%D %I:%M %p')}}"
+
+- platform: template
+  sensors:
+    downstairs_away_mode:
+      friendly_name: "Downstairs Away"
+      value_template: >
+        {% if is_state_attr('climate.downstairs_downstairs', 'away_mode', 'off') %}
+          home
+        {% else %}
+          not_home
+        {% endif %}
+
+- platform: template
+  sensors:
+    upstairs_away_mode:
+      friendly_name: "Upstairs Away"
+      value_template: >
+        {% if is_state_attr('climate.upstairs_upstairs', 'away_mode', 'off') %}
+          home
+        {% else %}
+          not_home
+        {% endif %}
+
+- platform: template
+  sensors:
+    washer_running:
+      friendly_name: "Washer Running"
+      value_template: >
+        {% if states.sensor.washing_machine_js_electric_consumed_w_3.state | int < 6 %}
+          off
+        {% else %}
+          on
+        {% endif %}
+
+- platform: template
+  sensors:
+    wh65b_last_update:
+      friendly_name: "WH65B Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.wh65b_rssi.last_updated)) | round (1) }}"
+
+
+
+- platform: command_line
+  name: CPU Temp
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "C"
+  value_template: "{{ value | multiply(0.001) | round(1) }}"
+
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+    - "date_time"
+    - "time_date"
+    - "time_utc"
+    - "beat"
+
+- platform: uptime
+  name: Hass Uptime
+  #unit_of_measurement: hours
+
+- platform: mqtt
+  state_topic: "zwave/garage_door_js/102/0/currentState"
+  name: "Garage Door State"
+  force_update: true
+  value_template: "{{ value_json.value }}"
+
+- platform: mqtt
+  state_topic: "zwave/garage_door_js/102/0/position"
+  name: "Garage Door Position"
+  force_update: true
+  value_template: "{{ value_json.value }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Temp F"
+  unit_of_measurement: "°F"
+  force_update: true
+  value_template: "{{ value_json.temperature_F | round (1)}}"
   
-  - platform: template
-    sensors:
-      batt_fridge_door:
-        friendly_name: 'Fridge Door Battery'
-        entity_id: zwave.ingersoll_rand_dwzwave1
-        value_template: '{%if states.zwave.ingersoll_rand_dwzwave1 is not none %}
-          {{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level }}
-          {% else %}
-            n/a
-          {% endif %}'
-        #value_template: '{{ states.zwave.ingersoll_rand_dwzwave1.attributes.battery_level | int }}'
-        unit_of_measurement: '%'
-        device_class: battery
 
-  - platform: template
-    sensors:
-      kitch_last_tripped:
-        #entity_id: zwave.kitchen_living_motion
-        friendly_name: 'Kitchen Motion Last Tripped'
-        value_template: "{{ as_timestamp( states.binary_sensor.kitchen_living_motion.attributes.last_tripped_time ) | timestamp_custom('%D %I:%M %p')}}"
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Humidity"
+  unit_of_measurement: "%"
+  force_update: true
+  value_template: "{{ value_json.humidity }}"
 
-  - platform: template
-    sensors:
-      downstairs_away_mode:
-        friendly_name: "Downstairs Away"
-        value_template: >
-          {% if is_state_attr('climate.downstairs_downstairs', 'away_mode', 'off') %}
-            home
-          {% else %}
-            not_home
-          {% endif %}
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Lux"
+  unit_of_measurement: "lux"
+  force_update: true
+  value_template: "{{ ((value_json.light_lux)*0.0079) | round(3) }}"
 
-  - platform: template
-    sensors:
-      upstairs_away_mode:
-        friendly_name: "Upstairs Away"
-        value_template: >
-          {% if is_state_attr('climate.upstairs_upstairs', 'away_mode', 'off') %}
-            home
-          {% else %}
-            not_home
-          {% endif %}
-          
-  - platform: template
-    sensors:
-      washer_running:
-        friendly_name: "Washer Running"
-        value_template: >
-          {% if states.sensor.aeotec_dsc06106_smart_energy_switch_power_7.state | int < 6 %}
-            off
-          {% else %}
-            on
-          {% endif %}
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B UV"
+  unit_of_measurement: "uv"
+  force_update: true
+  value_template: "{{ value_json.uv }}"
 
-  - platform: pi_hole
-    host: 172.16.1.115
-    monitored_conditions:
-      - ads_blocked_today
-      - ads_percentage_today
-      - dns_queries_today
-      - unique_clients
-      - unique_domains
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B UV"
+  unit_of_measurement: "uvi"
+  force_update: true
+  value_template: "{{ value_json.uvi }}"
 
-  - platform: plex
-    host: 172.16.1.25
-    username: !secret plexuser
-    password: !secret plexpass
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Time"
+  #unit_of_measurement: "dB"
+  #force_update: true
+  value_template: "{{ value_json.time }}"
 
-  - platform: google_travel_time
-    name: "To Home"
-    api_key: !secret google_api
-    origin: zone.work
-    destination: zone.home
-    scan_interval: 600
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B SNR"
+  unit_of_measurement: "dB"
+  force_update: true
+  value_template: "{{ value_json.snr }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Noise"
+  unit_of_measurement: "dB"
+  force_update: true
+  value_template: "{{ value_json.noise }}"
+
+- platform: template
+  sensors:
+    heat_index_wh65:
+      friendly_name: "Feels Like WH65"
+      #formula taken from http://www.srh.noaa.gov/ama/?n=heatindex
+      value_template: >-
+        {% if is_state('sensor.wh65b_temp_f','unknown') %}
+          unknown  
+        {% elif 112 > states('sensor.wh65b_temp_f') | float > 80 and states('sensor.wh65b_humidity') | float < 13 %}
+          {{ (((-42.379 + (2.04901523*(states.sensor.wh65b_temp_f.state|float)) + (10.14333127*(states.sensor.wh65b_humidity.state|float)) - (0.22475541*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00683783*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)) - (0.05481717*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00122874*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00085282*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00000199*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)))-(((13-(states.sensor.wh65b_humidity.state|float))/4)*sqrt((17-(((states.sensor.wh65b_temp_f.state|float)-95)|abs))/17))) | round(1)) }}
+        {% elif 87 > states('sensor.wh65b_temp_f') | float > 80 and states('sensor.wh65b_humidity') | float > 85 %} 
+          {{ (((-42.379 + (2.04901523*(states.sensor.wh65b_temp_f.state|float)) + (10.14333127*(states.sensor.wh65b_humidity.state|float)) - (0.22475541*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00683783*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)) - (0.05481717*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00122874*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00085282*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00000199*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)))-(((states.sensor.wh65b_humidity.state|float)-85)/10)*((87-(states.sensor.wh65b_temp_f.state|float))/5)) | round(1)) }}
+        {% elif states('sensor.wh65b_temp_f') | float < 80 %}
+          {{ ((0.5*((states.sensor.wh65b_temp_f.state|float) + 61.0 + (((states.sensor.wh65b_temp_f.state|float)-68)*1.2) + ((states.sensor.wh65b_humidity.state|float)*0.094))) | round(1)) }}
+        {% else %}
+          {{ ((-42.379 + (2.04901523*(states.sensor.wh65b_temp_f.state|float)) + (10.14333127*(states.sensor.wh65b_humidity.state|float)) - (0.22475541*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00683783*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)) - (0.05481717*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00122874*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)) + (0.00085282*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)) - (0.00000199*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_temp_f.state|float)*(states.sensor.wh65b_humidity.state|float)*(states.sensor.wh65b_humidity.state|float)))| round(1)) }}
+        {% endif %}
+      unit_of_measurement: "°F"
     
+    heat_index:
+      friendly_name: "Feels Like"
+      #formula taken from http://www.srh.noaa.gov/ama/?n=heatindex
+      value_template: >-
+        {% if is_state('sensor.outdoor_temperature','unknown') %}
+          unknown  
+        {% elif 112 > states('sensor.outdoor_temperature') | float > 80 and states('sensor.humidity') | float < 13 %}
+          {{ (((-42.379 + (2.04901523*(states.sensor.outdoor_temperature.state|float)) + (10.14333127*(states.sensor.humidity.state|float)) - (0.22475541*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) - (0.00683783*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)) - (0.05481717*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) + (0.00122874*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) + (0.00085282*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) - (0.00000199*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)))-(((13-(states.sensor.humidity.state|float))/4)*sqrt((17-(((states.sensor.outdoor_temperature.state|float)-95)|abs))/17))) | round(1)) }}
+        {% elif 87 > states('sensor.outdoor_temperature') | float > 80 and states('sensor.humidity') | float > 85 %} 
+          {{ (((-42.379 + (2.04901523*(states.sensor.outdoor_temperature.state|float)) + (10.14333127*(states.sensor.humidity.state|float)) - (0.22475541*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) - (0.00683783*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)) - (0.05481717*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) + (0.00122874*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) + (0.00085282*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) - (0.00000199*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)))-(((states.sensor.humidity.state|float)-85)/10)*((87-(states.sensor.outdoor_temperature.state|float))/5)) | round(1)) }}
+        {% elif states('sensor.outdoor_temperature') | float < 80 %}
+          {{ ((0.5*((states.sensor.outdoor_temperature.state|float) + 61.0 + (((states.sensor.outdoor_temperature.state|float)-68)*1.2) + ((states.sensor.humidity.state|float)*0.094))) | round(1)) }}
+        {% else %}
+          {{ ((-42.379 + (2.04901523*(states.sensor.outdoor_temperature.state|float)) + (10.14333127*(states.sensor.humidity.state|float)) - (0.22475541*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) - (0.00683783*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)) - (0.05481717*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) + (0.00122874*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)) + (0.00085282*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)) - (0.00000199*(states.sensor.outdoor_temperature.state|float)*(states.sensor.outdoor_temperature.state|float)*(states.sensor.humidity.state|float)*(states.sensor.humidity.state|float)))| round(1)) }}
+        {% endif %}
+      unit_of_measurement: "°F"
 
-  - platform: google_travel_time
-    name: "To Work"
-    api_key: !secret google_api
-    origin: zone.home
-    destination: zone.work
-    scan_interval: 600
+- platform: template
+  sensors:
+    wh65b_heat_index_final:
+      friendly_name: "WH65B Heat Index Final"
+      value_template: >- 
+        {% if is_state('sensor.wh65b_temp_f','unknown') %}
+          unknown
+        {% else %}
+          {{states.sensor.heat_index.state}}
+        {% endif %}
+      unit_of_measurement: "°F"
 
-  - platform: google_travel_time
-    name: "Home From School"
-    api_key: !secret google_api
-    origin: zone.school
-    destination: zone.home
-    scan_interval: 900
-    
-  - platform: cert_expiry
-    host: !secret cert_domain
-    port: 8123
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B RSSI"
+  unit_of_measurement: "dB"
+  force_update: true
+  value_template: "{{ value_json.rssi | round(2)}}"
 
-  - platform: launch_library
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B RAIN"
+  force_update: true
+  unit_of_measurement: "in"
+  value_template: "{{ value_json.rain_in }}"
 
-  - platform: flunearyou
-  
-  - platform: command_line
-    name: CPU Temp
-    command: "cat /sys/class/thermal/thermal_zone0/temp"
-    unit_of_measurement: "C"
-    value_template: '{{ value | multiply(0.001) | round(1) }}'
-  
-  - platform: time_date
-    display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-      - 'time_date'
-      - 'time_utc'
-      - 'beat'  
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "Wind Speed"
+  force_update: true
+  unit_of_measurement: "mph"
+  #value_template: "{{ value_json.wind_avg_m_s }}"
+  value_template: "{{ (((value_json.wind_avg_m_s)*2.237) | round(3)) }}"
 
-  - platform: uptime
-    name: Hass Uptime
-    unit_of_measurement: hours
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "WH65B Wind Gust"
+  unit_of_measurement: "mph"
+  force_update: true
+  value_template: "{{ (((value_json.wind_max_m_s)*2.237) | round(3)) }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH65B/19"
+  name: "Wind Direction"
+  force_update: true
+  unit_of_measurement: "°"
+  value_template: "{{ value_json.wind_dir_deg }}"
+
+#Barometric Pressure
+- platform: template
+  sensors:
+    baro_pressure:
+      friendly_name: "Barometric Pressure in inHg"
+      #formula reference from https://www.omnicalculator.com/physics/air-pressure-at-altitude#how-to-calculate-air-pressure-at-altitude and includes a kPa to inHg division of 3.386
+      value_template: "{{ (101.325 * (e** (((-9.80665*0.0289644)*(365-0))/(8.31432*(((states.sensor.wh65b_temp_f.state|float)-32)*(5/9)+273.15))))/3.386) }}"
+      unit_of_measurement: "inHg"
+
+## SECOND SENSOR PICKED UP ON OUTSIDE UNIT
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 Temp F"
+  unit_of_measurement: "°F"
+  force_update: true
+  value_template: "{{ value_json.temperature_F }}"
+
+- platform: template
+  sensors:
+    baro_pressure_wh24:
+      friendly_name: "Barometric Pressure in inHg"
+      value_template: "{{ (((1013.25 * ( 1+ ((-0.0065/(((states.sensor.wh24_temp_f.state|float)-32)*(5/9)+273.15))*(365-11887.2)) ** ((-9.80665*0.0289644)/(8.31432*-0.0065))))*0.029529983071445) | round(3)) }}"
+      #value_template: '{{ (float(states.sensor.pressure.state) / (1-0.0065*600/(float(states.sensor.temperatur.state) + 273.15 )) ** (5.255)) | round(3) }}''
+      unit_of_measurement: "inHg"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 Humidity"
+  force_update: true
+  unit_of_measurement: "%"
+  value_template: "{{ value_json.humidity }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 RSSI"
+  unit_of_measurement: "dB"
+  force_update: true
+  value_template: "{{ value_json.rssi }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 RAIN"
+  unit_of_measurement: "in"
+  value_template: "{{ value_json.rain_in }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 Wind Speed"
+  unit_of_measurement: "mph"
+  value_template: "{{ (((value_json.wind_avg_m_s)*2.237) | round(3)) }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH24/19"
+  name: "WH24 Wind Direction"
+  unit_of_measurement: "°"
+  value_template: "{{ value_json.wind_dir_deg }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH25/216"
+  name: "WH25 Temp F"
+  unit_of_measurement: "°F"
+  force_update: true
+  value_template: "{{ value_json.temperature_F }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH25/216"
+  name: "WH25 Pressure"
+  unit_of_measurement: "inHg"
+  force_update: true
+  value_template: "{{ value_json.pressure_inHg }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/Fineoffset-WH25/216"
+  name: "WH25 RSSI"
+  force_update: true
+  unit_of_measurement: "dB"
+  value_template: "{{ value_json.rssi }}"
+
+- platform: mqtt
+  state_topic: "rtl_433/ERT-SCM/26580442"
+  name: "Power Meter"
+  force_update: true
+  unit_of_measurement: "kwH"
+  value_template: "{{ value_json.consumption_data }}"
+
+- platform: mqtt
+  state_topic: "BlueIris/alert"
+  name: "BI Alert"
+  force_update: false
+
+#Query from Database
+- platform: influxdb
+  host: 172.16.1.121
+  port: 8086
+  database: homeassistant
+  scan_interval: 5
+  name: !secret influxuser
+  password: !secret influxpass
+  queries:
+    #Start Rain Related
+    - name: Rain 10 Minutes Ago
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: 'time > now() - 10m AND "entity_id"=''wh65b_rain'''
+    - name: Rain Yesterday
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: '"entity_id"=''wh65b_rain'' AND time > {{ (as_timestamp(now()) | timestamp_custom("''%Y-%m-%d 00:00:00''")) }} tz(''America/Chicago'')'
+    - name: Rain 24 Hours Ago
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: 'time > now() - 24h AND "entity_id"=''wh65b_rain'''
+    - name: Rain 7 Days Ago
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: 'time > now() - 7d AND "entity_id"=''wh65b_rain'''
+    - name: Rain 30 Days Ago
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: 'time > now() - 30d AND "entity_id"=''wh65b_rain'''
+    - name: Rain 365 Days Ago
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: 'time > now() - 365d AND "entity_id"=''wh65b_rain'''
+    - name: Rain Begin This Week
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: '"entity_id"=''wh65b_rain'' AND time > {{ ((as_timestamp(now()) - (now().strftime("%w")|int) * (24*3600))) | timestamp_custom("''%Y-%m-%d 00:00:00''") }} tz(''America/Chicago'')'
+    - name: Rain Begin This Month
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: '"entity_id"=''wh65b_rain'' AND time > {{ (as_timestamp(now()) | timestamp_custom("''%Y-%m-01 00:00:00''")) }} tz(''America/Chicago'')'
+    - name: Rain Begin This Year
+      unit_of_measurement: in
+      value_template: "{{ value | float }}"
+      group_function: first
+      measurement: '"autogen"."in"'
+      field: '"value"'
+      database: homeassistant
+      where: '"entity_id"=''wh65b_rain'' AND time > {{ (as_timestamp(now()) | timestamp_custom("''%Y-01-01 00:00:00''")) }} tz(''America/Chicago'')'
+    #End Rain Related
+
+#7 Day Rain
+- platform: template
+  sensors:
+    7_day_rain:
+      friendly_name: "7 Day Rain"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_7_days_ago.state|float) }}"
+
+#Rain This Week
+- platform: template
+  sensors:
+    rain_this_week:
+      friendly_name: "Rain This Week"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_begin_this_week.state|float) }}"
+
+#30 Day Rain
+- platform: template
+  sensors:
+    30_day_rain:
+      friendly_name: "30 Day Rain"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_30_days_ago.state|float) }}"
+
+#Rain This Month
+- platform: template
+  sensors:
+    rain_this_month:
+      friendly_name: "Rain This Month"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_begin_this_month.state|float) }}"
+
+#Annual Rain
+- platform: template
+  sensors:
+    annual_rain:
+      friendly_name: "Annual Rain"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_365_days_ago.state|float) }}"
+
+#Rain This Year
+- platform: template
+  sensors:
+    rain_this_year:
+      friendly_name: "Rain This Year"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_begin_this_year.state|float) }}"
+
+#Total Rain
+- platform: template
+  sensors:
+    total_rain:
+      friendly_name: "Total Rain"
+      unit_of_measurement: "in"
+      value_template: "{{ (states.sensor.wh65b_rain.state|float) }}"
+
+#Rain Rate
+- platform: template
+  sensors:
+    rain_rate:
+      friendly_name: "Rain Rate"
+      unit_of_measurement: "in/hr"
+      #from https://help.ambientweather.net/help/rain-increment-definitions/
+      value_template: >-
+        {% if ((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float)) > 0 %}
+          {{ (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) }}
+        {% else %}
+          unknown
+        {% endif %}
+#Rain 24 Hours
+- platform: template
+  sensors:
+    rain_last_24_hours:
+      friendly_name: "Rain Last 24 hours"
+      unit_of_measurement: "in"
+      value_template: >- 
+        {% if is_state('sensor.wh65b_rain','unknown') %}
+          unknown  
+        {% else %}
+          {{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_24_hours_ago.state|float) }}
+        {% endif %}
+
+#Rain Since Midnight
+- platform: template
+  sensors:
+    rain_since_midnight:
+      friendly_name: "Rain Since Midnight"
+      unit_of_measurement: "in"
+      value_template: >- 
+        {% if is_state('sensor.wh65b_rain','unknown') %}
+          unknown  
+        {% elif is_state('sensor.wh65b_rain','0') %}
+          unknown
+        {% else %}
+          {{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_yesterday.state|float) }}
+        {% endif %}
+#Rain Started
+- platform: template
+  sensors:
+    rain_started:
+      friendly_name: "Rain Started"
+      unit_of_measurement: "in"
+      value_template: >-
+        {% if (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) > 0 and states('sensor.rain_started')|float == 0 %}
+          {{ (states.sensor.wh65b_rain.state|float) }}
+        {% elif (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) == 0 and states.sensor.rain_last_24_hours.state|float < 0.039 %}
+          0
+        {% endif %}
+
+#Rain Event
+- platform: template
+  sensors:
+    rain_event:
+      friendly_name: "Rain Event"
+      unit_of_measurement: "in"
+      #from https://help.ambientweather.net/help/rain-increment-definitions/
+      value_template: >-
+        {% if (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) == 0 and states.sensor.rain_last_24_hours.state|float < 0.039 %}
+          0
+        {% elif states.sensor.rain_started.state|float > 0 %}
+          {{ (states.sensor.wh65b_rain.state|float) - (states.sensor.rain_started.state|float) }}
+        {% endif %}
+
+  #Last Rain Epoch
+- platform: template
+  sensors:
+    last_rain_epoch:
+      friendly_name: "Last Rain Epoch"
+      unit_of_measurement: "date"
+      value_template: >-
+        {% if (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) > 0 %}
+          {{ as_timestamp(now()) }}
+        {% else %}
+          {{ as_timestamp(states.sensor.last_rain_epoch.state) }}
+        {% endif %}
+
+#Last Rain
+- platform: template
+  sensors:
+    last_rain:
+      friendly_name: "Last Rain"
+      unit_of_measurement: "date"
+      value_template: >-
+        {% if is_state('sensor.wh65b_rain','unknown') %}
+          unknown  
+        {% elif (((states.sensor.wh65b_rain.state|float) - (states.sensor.rain_10_minutes_ago.state|float))*6) > 0 %}
+          {{ as_timestamp(now() | timestamp_custom("%Y-%m-%d %H:%M:%S %Z")) }}
+        {% else %}
+          {{ as_timestamp(states.sensor.last_rain.state | timestamp_custom("%Y-%m-%d %H:%M:%S %Z")) }}
+        {% endif %}
+
+- platform: template
+  sensors:
+    lr_dewpt_gamma:
+      friendly_name: "Outside Dew Point Input"
+      value_template: >-
+        {{ log( states('sensor.wh65b_humidity')|int / 100 ) + 17.625 * states('sensor.wh65b_temp_f')|float / (257.14 + states('sensor.wh65b_temp_f')|float )  }}
+
+- platform: template
+  sensors:
+    dewpoint:
+      friendly_name: "DewPoint"
+      unit_of_measurement: "°F"
+      value_template: >-
+        {{ (257.14 * states('sensor.lr_dewpt_gamma')|float / (17.625 -  states('sensor.lr_dewpt_gamma')|float ))|round(1) }}
+
+- platform: template
+  sensors:
+    temp_c:
+      friendly_name: "Temp C"
+      unit_of_measurement: "C"
+      value_template: "{{ (((states.sensor.wh65b_temp_f.state)|float -32) * 5/9) }}"
+
+- platform: template
+  sensors:
+    dewpoint_simple:
+      friendly_name: "DewPoint"
+      unit_of_measurement: "°F"
+      value_template: "{{ ((states.sensor.wh65b_temp_c|float*1) - ((100 - (states.sensor.wh65b_humidity.state|float*1))/5)) }}"
+
+- platform: template
+  sensors:
+    dewpoint_complex:
+      friendly_name: "DewPoint"
+      unit_of_measurement: "°F"
+      value_template: >-
+        {{ ((243.04 * (log((states.sensor.wh65b_humidity.state)|int)/100)
+           + ((17.625 * (states.sensor.temp_c)|float)
+           / (243.04 + ((states.sensor.temp_c)|float)))
+           / (17.625 - log((states.sensor.wh65b_humidity.state)|int)/100)
+           - ((17.625 * ((states.sensor.temp_c)|float)
+           / (243.04 + ((states.sensor.temp_c)|float)))) * 9 / 5) + 32)
+           }}
+
+- platform: template
+  sensors:
+    dewpoint_long_formula:
+      friendly_name: "Dewpoint Long Formula"
+      unit_of_measurement: "°F"
+      value_template: "{{ (( 243.12 * (log(states.sensor.wh65b_humidity.state|int / 100)+((17.62 * (states.sensor.temp_c.state|float) / (243.12+(states.sensor.temp_c.state|float)) ))) / (17.62-(log(states.sensor.wh65b_humidity.state|int / 100))-((17.62 * (states.sensor.temp_c.state|float) / (243.12+(states.sensor.temp_c.state|float)) ))) * (9/5) +32) |round(2))}}"
+
+- platform: template
+  sensors:
+    upstairs_hvac_state:
+      friendly_name: "Upstairs HVAC State"
+      value_template: "{{ state_attr('climate.upstairs','hvac_action') }}"
+
+- platform: template
+  sensors:
+    downstairs_hvac_state:
+      friendly_name: "Downstairs HVAC State"
+      value_template: "{{ state_attr('climate.downstairs','hvac_action') }}"
+
+- platform: template
+  sensors:
+    downstairs_preset_mode:
+      friendly_name: "Downstairs Preset Mode"
+      value_template: "{{ state_attr('climate.downstairs','preset_mode') }}"
+
+- platform: template
+  sensors:
+    upstairs_preset_mode:
+      friendly_name: "Upstairs Preset Mode"
+      value_template: "{{ state_attr('climate.upstairs','preset_mode') }}"
+
+
+
+- platform: template
+  sensors:
+    ecowitt_temp_last_update:
+      friendly_name: "Ecowitt Temp Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.outdoor_temperature.last_updated)) | round (1) }}"
+
+- platform: template
+  sensors:
+    ecowitt_wind_dir_last_update:
+      friendly_name: "Ecowitt Wind Dir Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.wind_direction_2.last_updated)) | round (1) }}"
+
+- platform: template
+  sensors:
+    ecowitt_wind_dir_last_update:
+      friendly_name: "Ecowitt Wind Dir Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.wind_direction_2.last_updated)) | round (1) }}"
+
+- platform: template
+  sensors:
+    ecowitt_solar_radiation_last_update:
+      friendly_name: "Ecowitt Solar Radiation Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.solar_radiation.last_updated)) | round (1) }}"
+
+- platform: template
+  sensors:
+    ecowitt_rel_pressure_last_update:
+      friendly_name: "Ecowitt Rel Pressure Last Update"
+      value_template: "{{ (as_timestamp(now()) - as_timestamp(states.sensor.relative_pressure.last_updated)) | round (1) }}"
+
+- platform: template
+  sensors:
+    ecowitt_outside_temp_force_update:
+      friendly_name: "Ecowitt Outside Temp"
+      unit_of_measurement: "°F"
+      value_template: "{{ states('sensor.outdoor_temperature') }}"
+      attribute_templates:
+        minute_last_updated: "{{ now().minute }}"
+
+###############################
+
+- platform: template
+  sensors:
+    flume_status:
+      friendly_name: "Flume Flow Status"
+      value_template: >-
+        {{ states.sensor.flume_sensor.state != "0" }}
+        
+- platform: openhardwaremonitor
+  host: 172.16.1.130
+
+- platform: openhardwaremonitor
+  host: 172.16.1.25
+
+########## STATISTICS ENTRIES ############
+
+- platform: integration
+  source: sensor.fridgeplug_energy_power
+  name: fridgeplug_kWh
+  unit_prefix: k
+  round: 2
+
+
+- platform: template
+  sensors:
+    fridge_running:
+      friendly_name: "Fridge Running"
+      value_template: >-
+        {{ states('sensor.fridgeplug_energy_current')| float > 0 }}  
+
+- platform: template
+  sensors:
+    freezer_running:
+      friendly_name: "Freezer Running"
+      value_template: >-
+        {{ states('sensor.freezerplug_energy_current')| float > 0 }}  
+
+- platform: history_stats
+  name: "Youtube Watch Time"
+  entity_id: sensor.living_rm_roku_active_app
+  state: "YouTube"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "Netflix Watch Time"
+  entity_id: sensor.living_rm_roku_active_app
+  state: "Netflix"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24 
+
+- platform: history_stats
+  name: "Study Youtube Watch Time"
+  entity_id: sensor.study_roku_active_app
+  state: "YouTube"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "Study Netflix Watch Time"
+  entity_id: sensor.study_roku_active_app
+  state: "Netflix"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24 
+
+- platform: history_stats
+  name: "PlayRm Youtube Watch Time"
+  entity_id: sensor.playroom_roku_active_app
+  state: "YouTube"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "PlayRm Netflix Watch Time"
+  entity_id: sensor.playroom_roku_active_app
+  state: "Netflix"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24 
+
+
+- platform: history_stats
+  name: "Washer Run Time"
+  entity_id: sensor.washer_running
+  state: "on"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "Study Light On Time"
+  entity_id: switch.study_light_js
+  state: "on"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "Fridge On Time"
+  entity_id: sensor.fridge_running
+  state: "True"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: history_stats
+  name: "Freezer On Time"
+  entity_id: sensor.freezer_running
+  state: "True"
+  type: time
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  duration:
+    hours: 24
+
+- platform: mqtt
+  state_topic: "truck_ble_transmitter/sensor/office_temperature/state"
+  name: "Cooler Temp"
+  unit_of_measurement: "C"
+
+- platform: template
+  sensors:
+    cooler_temp_f:
+      friendly_name: "cooler_temp_f"
+      unit_of_measurement: "F"
+      value_template: >-
+        {{ (((((states.sensor.cooler_temp.state)|float /5) * 9) +32) | round(1) ) }}
+ 
+- platform: template
+  sensors:
+    day_1_forecast_high:
+      friendly_name: "Day 1 Forecast High"
+      value_template: "{{ state_attr('weather.climacell_daily','forecast')[0].temperature }}"
+
+- platform: template
+  sensors:
+    day_1_forecast_low:
+      friendly_name: "Day 1 Forecast Low"
+      value_template: "{{ state_attr('weather.climacell_daily','forecast')[0].templow }}"
+
+- platform: template
+  sensors:
+    day_1_forecast_precip:
+      friendly_name: "Day 1 Forecast Precip"
+      value_template: "{{ state_attr('weather.climacell_daily','forecast')[0].precipitation_probability }}"
+
+- platform: template
+  sensors:
+    day_1_forecast_precip_amount:
+      friendly_name: "Day 1 Forecast Precip Amount"
+      value_template: "{{ state_attr('weather.climacell_daily','forecast')[0].precipitation }}"
+
+- platform: template
+  sensors:
+    day_1_forecast_condition:
+      friendly_name: "Day 1 Forecast Condition"
+      value_template: "{{ state_attr('weather.climacell_daily','forecast')[0].condition }}"
+
+- platform: moon
+
+- platform: template
+  sensors:
+    tempeature_setpoint_difference:
+      friendly_name: "Temperature Setpoint Difference"
+      unit_of_measurement: "°F"
+      device_class: temperature
+      value_template: "{{ (state_attr('climate.upstairs', 'temperature') - 
+(state_attr('climate.downstairs','current_temperature')|float)) + 2 }}"
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+    - type: memory_use_percent
+    - type: load_1m
+    - type: load_15m
+    - type: throughput_network_in
+      arg: eth0
+    - type: throughput_network_out
+      arg: eth0
+
+
+- platform: template
+  sensors:
+    radio_ps_volts_calc:
+      friendly_name: "Radio PS Volts Calculated"
+      unit_of_measurement: 'V'
+      value_template: "{{ (((states('sensor.radio_ps_volts') |float -0.11 ) * 5) | round(4)) }}"
+      attribute_templates:
+        minute_last_updated: "{{ now().minute }}"
