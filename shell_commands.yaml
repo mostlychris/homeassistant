@@ -1,6 +1,0 @@
-#bi_profile_3: /usr/bin/curl:  "/usr/bin/curl -X GET http://172.16.1.117:81/admin?profile=3&user=admin&pw=epX93Gt12"
-#bi_profile_1: /usr/bin/curl:  "/usr/bin/curl -X GET http://172.16.1.117:81/admin?profile=1&user=admin&pw=epX93Gt12"
-bi_home: /usr/bin/curl -X GET "http://172.16.1.25:81/admin?profile=1&user=admin&pw=epX93Gt12"
-bi_away: /usr/bin/curl -X GET "http://172.16.1.25:81/admin?profile=4&user=admin&pw=epX93Gt12"
-bi_night: /usr/bin/curl -X GET "http://172.16.1.25:81/admin?profile=2&user=admin&pw=epX93Gt12"
-
