@@ -1,0 +1,47 @@
+  - type: custom:home-feed-card
+    title: Home Feed
+    show_empty: false
+    scrollbars_enabled: false
+    max_item_count: 6
+    entities:
+      - entity: binary_sensor.kitchen_living_motion
+        icon: mdi:motion-sensor
+        name: Kitchen/Living Motion
+      - entity: binary_sensor.study_sensor_motion_detected_js
+        icon: mdi:motion-sensor
+        name: Study Motion
+      - entity: sensor.front_hall_last_tripped
+        icon: mdi:motion-sensor
+        name: Front Hall Motion
+      - entity: binary_sensor.upstairs_motion
+        icon: mdi:motion-sensor
+      - entity: binary_sensor.back_doore_entry
+        icon: mdi:door
+        name: Back Door
+      - entity: binary_sensor.front_garage_door_entry
+        icon: mdi:door
+        name: Front Hall Door
+      - entity: sensor.garage_door_js_access_control_barrier_sensor_status
+        icon: mdi:garage
+        name: Garage Door
+      - entity: alarm_control_panel.buck_creek
+        icon: mdi:alarm
+        name: Alarm
+      - entity: switch.study_light_js
+        icon: mdi:light-switch
+        name: Study Light
+      - entity: binary_sensor.garage_sensor_js_motion_detection
+        icon: mdi:motion-sensor
+        name: Garage Motion
+      - entity: lock.back_door_lock_js
+        icon: mdi:lock
+        name: Back Door Lock
+      - entity: lock.front_door_lock_js
+        icon: mdi:lock
+        name: Front Door Lock
+      - entity: binary_sensor.fridge_door_sensor_js
+        icon: mdi:door
+        name: Fridge Door
+      - entity: sensor.bi_alert
+        name: BI Alert
+        icon: mdi:camera
