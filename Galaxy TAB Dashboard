@@ -1,873 +1,3971 @@
-type: grid
-columns: 1
-square: false
-name: Big Room
-cards:
-  - type: grid
-    columns: 5
-    square: false
+views:
+  - title: Dash
+    path: ''
+    icon: mdi:castle
+    badges: []
     cards:
-      - type: button
-        tap_action:
-          action: more-info
-        entity: alarm_control_panel.buck_creek
-        name: DSC
-      - type: custom:button-card
-        entity: binary_sensor.north_gate_status
-        name: North Gate
-        icon: mdi:gate
-        tap_action:
-          action: more-info
-        show_state: false
-        styles:
-          card:
-            - filter: opacity(50%)
-            - height: 102px
-          icon:
-            - color: white
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 'on'
-            icon: mdi:gate-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-                - height: 102px
-                - animation: blink 2s ease infinite
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: binary_sensor.south_gate_status
-        name: South Gate
-        icon: mdi:gate
-        tap_action:
-          action: more-info
-        show_state: false
-        styles:
-          card:
-            - filter: opacity(50%)
-            - height: 102px
-          icon:
-            - color: white
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 'on'
-            icon: mdi:gate-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-                - height: 102px
-                - animation: blink 2s ease infinite
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: button
-        tap_action:
-          action: toggle
-        entity: input_boolean.vacay_status
-        name: Vacay
-        icon: mdi:tree
-      - type: button
-        icon: mdi:desk
-        name: Work Mode
-        tap_action:
-          action: call-service
-          service: automation.trigger
-          service_data:
-            entity_id: automation.work_day_setup
-          confirmation: true
-  - type: grid
-    columns: 6
+      - type: grid
+        columns: 1
+        square: false
+        name: Big Room
+        cards:
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: more-info
+                entity: alarm_control_panel.buck_creek
+                name: DSC
+              - type: custom:button-card
+                entity: binary_sensor.north_gate_status
+                name: North Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.south_gate_status
+                name: South Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.vacay_status
+                name: Vacay
+                icon: mdi:tree
+              - type: button
+                icon: mdi:desk
+                name: Work Mode
+                tap_action:
+                  action: call-service
+                  service: automation.trigger
+                  service_data:
+                    entity_id: automation.work_day_setup
+                  confirmation: true
+          - type: grid
+            columns: 6
+            cards:
+              - type: custom:button-card
+                entity: lock.front_door_lock_js
+                name: Front
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: lock.back_door_lock_js
+                name: Back
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: cover.garage_door_js
+                name: Garage
+                icon: mdi:garage
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - '--mdc-ripple-color': blue
+                    - '--mdc-ripple-press-opacity': 0.5
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: open
+                    icon: mdi:garage-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.front_garage_door_entry
+                name: Front
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.back_doore_entry
+                name: Back
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.fridge_door_sensor_js
+                name: Fridge
+                icon: mdi:fridge-variant
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:fridge-variant-alert
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 8
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_holiday_lights_js
+                name: HLDY
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: group.trees
+                name: TREES
+                icon: hass:string-lights
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.deck_lights_js
+                name: Deck
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.back_porch_lights_js
+                name: BkPch
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.driveway_lights_js
+                name: Drive
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_porch_lights_js
+                name: Prch
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: custom:button-card
+                tap_action:
+                  action: toggle
+                entity: switch.attic_air_handler_js
+                name: Attic
+                icon: mdi:air-conditioner
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - filter: (opacity 50%)
+                        - height: 55px
+              - type: custom:button-card
+                tap_action:
+                  action: info
+                entity: binary_sensor.power_sensor_door_node_js
+                name: Grg Pwr
+                icon: mdi:lightning-bolt
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+                  - value: 'off'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - filter: opacity(50%)
+                        - background-color: green
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+          - type: grid
+            columns: 8
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_hall_lights_js
+                name: Hall
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.study_light_js
+                name: Study
+                icon: mdi:floor-lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_counter_js
+                name: CNTR
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_island_js
+                name: ISLND
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.living_room_lamp_js
+                name: LVNG
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.cw_lamp_js
+                name: CW
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.allyson_lamp_js
+                icon: mdi:lamp
+                name: AW
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.play_room_light_js
+                name: Play
+                icon: mdi:lightbulb
+          - type: grid
+            columns: 4
+            square: false
+            cards:
+              - type: custom:bignumber-card
+                entity: sensor.outdoor_temperature
+                title: Outside
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 0
+                max: 115
+                severity:
+                  - value: 50
+                    bnStyle: var(--label-badge-blue)
+                  - value: 82
+                    bnStyle: var(--label-badge-green)
+                  - value: 90
+                    bnStyle: var(--label-badge-yellow)
+                  - value: 115
+                    bnStyle: var(--label-badge-red)
+                    color: '#FFFFFF'
+              - type: custom:bignumber-card
+                entity: sensor.heat_index
+                title: Feels
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 0
+                max: 120
+                severity:
+                  - value: 50
+                    bnStyle: var(--label-badge-blue)
+                  - value: 60
+                    bnStyle: var(--label-badge-green)
+                  - value: 75
+                    bnStyle: var(--label-badge-yellow)
+                  - value: 115
+                    bnStyle: var(--label-badge-red)
+                    color: '#fff'
+              - type: custom:bignumber-card
+                entity: sensor.humidity
+                title: Humidity
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 35
+                max: 100
+                severity:
+                  - value: 30
+                    bnStyle: rgb(0,0,0)
+                  - value: 55
+                    bnStyle: rgb(153,204,255)
+                  - value: 70
+                    bnStyle: rgb(0,128,255)
+                  - value: 100
+                    bnStyle: rgb(0,76,153)
+                    color: '#FFFFFF'
+              - type: button
+                entity: light.guest_lamp
+                name: Guest
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: custom:button-card
+                name: Max Wind
+                entity: sensor.max_daily_wind_gust
+                show_state: true
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 20
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(1000%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: white
+                  - value: 12
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(70%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Rain Today
+                entity: sensor.daily_rain_rate
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Rain Rate
+                entity: sensor.rain_rate_2
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Fridge
+                entity: sensor.fridge_temperature
+                title: Fridge
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 45
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Grg Freeze
+                entity: sensor.garage_freezer_sensor_temp
+                title: Grg Freeze
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 10
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 6
+            square: 'off'
+            cards:
+              - type: custom:button-card
+                icon: mdi:blank
+                name: Study
+                entity: sensor.study_sensor_air_temperature_js
+                title: Study
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Study PC
+                icon: mdi:blank
+                entity: sensor.pc_box_temperature
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 95
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Garage
+                icon: mdi:blank
+                entity: sensor.garage_sensor_air_temperature_js
+                title: Garage
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 90
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+              - type: custom:button-card
+                name: Closet
+                icon: mdi:blank
+                entity: sensor.new_buck_creek_inside_temp
+                title: Closet
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Attic
+                icon: mdi:blank
+                entity: sensor.attic_air_temperature_js
+                title: Attic
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: black
+                  - value: 100
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Guest
+                icon: mdi:blank
+                entity: sensor.office_temperature
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: automation.frigate_motion_driveway_new_only
+                show_state: false
+                name: Drive
+                show_icon: true
+                icon: mdi:robot
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: automation.frigate_notify_front_porch
+                name: Front
+                show_state: false
+              - type: custom:button-card
+                entity: input_text.4000_extension_status
+                icon: mdi:phone
+                name: 4000
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+              - type: custom:button-card
+                entity: input_text.4001_extension_status
+                icon: mdi:phone
+                name: 4001
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+              - type: custom:button-card
+                entity: input_text.4002_extension_status
+                icon: mdi:phone
+                name: 4002
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+            icon_height: '-10px'
+            hold_action:
+              action: more-info
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: custom:home-feed-card
+            title: null
+            show_empty: false
+            scrollbars_enabled: false
+            max_item_count: 4
+            state_color: true
+            exact_durations: true
+            entities:
+              - entity: binary_sensor.kitchen_living_motion
+                icon: mdi:motion-sensor
+                name: Kitchen/Living Motion
+              - entity: binary_sensor.study_sensor_motion_detected_js
+                icon: mdi:motion-sensor
+                name: Study Motion
+              - entity: sensor.front_hall_last_tripped
+                icon: mdi:motion-sensor
+                name: Front Hall Motion
+              - entity: binary_sensor.upstairs_motion
+                icon: mdi:motion-sensor
+              - entity: binary_sensor.back_doore_entry
+                icon: mdi:door
+                name: Back Door
+              - entity: binary_sensor.front_garage_door_entry
+                icon: mdi:door
+                name: Front Hall Door
+              - entity: sensor.garage_door_js_access_control_barrier_sensor_status
+                icon: mdi:garage
+                name: Garage Door
+              - entity: alarm_control_panel.buck_creek
+                icon: mdi:alarm
+                name: Alarm
+              - entity: switch.study_light_js
+                icon: mdi:lamp
+                name: Study Light
+              - entity: binary_sensor.garage_sensor_js_motion_detection
+                icon: mdi:motion-sensor
+                name: Garage Motion
+              - entity: lock.back_door_lock_js
+                icon: mdi:lock
+                name: Back Door Lock
+              - entity: lock.front_door_lock_js
+                icon: mdi:lock
+                name: Front Door Lock
+              - entity: binary_sensor.fridge_door_sensor_js
+                icon: mdi:door
+                name: Fridge Door
+              - entity: sensor.bi_alert
+                name: BI Alert
+                icon: mdi:camera
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.kitchen_living_motion
+                icon: mdi:motion-sensor
+                name: Kitch
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.front_hall_motion
+                icon: mdi:motion-sensor
+                name: Hall
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.garage_sensor_js_motion_detection
+                icon: mdi:motion-sensor
+                name: Garage
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.upstairs_motion
+                icon: mdi:motion-sensor
+                name: Upstairs
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.study_sensor_motion_detected_js
+                icon: mdi:motion-sensor
+                name: Study
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.driveway_person_motion
+                icon: mdi:motion-sensor
+                name: Driveway
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 14px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - font-size: 14px
+                        - color: black
+              - type: custom:button-card
+                entity: binary_sensor.front_porch_person_motion
+                icon: mdi:motion-sensor
+                name: Porch
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 14px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - font-size: 14px
+                        - color: black
+          - type: grid
+            cards:
+              - type: entities
+                title: Samba Backups
+                entities:
+                  - type: attribute
+                    entity: sensor.samba_backup
+                    attribute: last_backup
+                    name: ''
+            columns: 1
+            square: false
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:auto-entities
+                card:
+                  title: Battery Devices <= 10%
+                  type: custom:bar-card
+                  severity:
+                    - color: Red
+                      from: 0
+                      to: 25
+                    - color: Orange
+                      from: 26
+                      to: 50
+                    - color: Green
+                      from: 51
+                      to: 100
+                  device_class: battery
+                  title_position: left
+                  padding: 0px 15px 3px 15px
+                  saturation: 50%
+                  columns: 1
+                  height: 20px
+                  width: 60%
+                  card_style:
+                    box-shadow: 0 0
+                  bar_style:
+                    border-radius: 20px
+                  indicator_style:
+                    border-radius: 20px
+                filter:
+                  include:
+                    - attributes:
+                        device_class: battery
+                  exclude:
+                    - state: n/a
+                    - state: 'off'
+                    - state: '>= 10'
+                    - state: unknown
+                    - state: unavailable
+          - type: custom:timer-bar-card
+            entities:
+              - entity: timer.radio_transmit
+                icon: mdi:wifi
+            modifications:
+              - elapsed: 40%
+                bar_foreground: orange
+                active_icon: mdi:fire
+                bar_height: 12px
+              - elapsed: 70%
+                bar_foreground: red
+                active_icon: mdi:fire-alert
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: picture-glance
+                entities:
+                  - entity: camera.driveway
+                camera_image: camera.driveway_person
+                entity: binary_sensor.driveway_person_motion
+              - type: picture-glance
+                entities:
+                  - entity: camera.frontprch
+                camera_image: camera.front_porch_person
+                entity: binary_sensor.front_porch_person_motion
+          - type: custom:mini-media-player
+            entity: media_player.living_rm_roku_ultra
+            name: Living Room Roku
+            artwork: cover
+            icon: mdi:television-clean
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view: '[object Object]'
+          - type: custom:mini-media-player
+            name: Play Room Roku
+            artwork: cover
+            icon: mdi:television-clean
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view:
+              when_idle: true
+              when_standby: true
+            entity: media_player.play_room_roku
+          - type: custom:mini-media-player
+            name: Study Roku Stick
+            artwork: cover
+            icon: mdi:television-clean
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view: '[object Object]'
+            entity: media_player.study_stick
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: sensor.upstairs_hvac_state
+                name: Upstairs
+                show_units: false
+                show_state: false
+                icon: mdi:fan-off
+                size: 25%
+                styles:
+                  card:
+                    - text-transform: capitalize
+                    - filter: opacity(50%)
+                    - font-size: 20px
+                    - height: 100px
+                  name:
+                    - font-weight: bold
+                    - font-size: 15px
+                    - color: white
+                    - align-self: start
+                    - justify-self: start
+                    - padding-left: 30px
+                  img_cell:
+                    - justify-content: middle
+                    - align-items: start
+                  grid:
+                    - grid-template-areas: '"n n" "i temp" "i set_point"'
+                    - grid-template-columns: 1fr 1fr
+                    - grid-template-rows: 1fr min-content min-content
+                  custom_fields:
+                    temp:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                    set_point:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                      - font-size: 15px
+                custom_fields:
+                  temp: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermometer"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_upstairs_temp_rounded'].state } °F</span>`
+                    ]]]
+                  set_point: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermostat"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_upstairs_set_point'].state } °F</span>`
+                    ]]]
+                state:
+                  - value: cooling
+                    icon: mdi:fan
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                  - value: heating
+                    icon: mdi:radiator
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: sensor.downstairs_hvac_state
+                name: Downstairs
+                show_units: false
+                show_state: false
+                icon: mdi:fan-off
+                size: 25%
+                styles:
+                  card:
+                    - text-transform: capitalize
+                    - filter: opacity(50%)
+                    - font-size: 20px
+                    - height: 100px
+                  name:
+                    - font-weight: bold
+                    - font-size: 15px
+                    - color: white
+                    - align-self: start
+                    - justify-self: start
+                    - padding-left: 20px
+                  img_cell:
+                    - justify-content: middle
+                    - align-items: start
+                  grid:
+                    - grid-template-areas: '"n n" "i temp" "i set_point"'
+                    - grid-template-columns: 1fr 1fr
+                    - grid-template-rows: 1fr min-content min-content
+                  custom_fields:
+                    temp:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                    set_point:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                      - font-size: 15px
+                custom_fields:
+                  temp: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermometer"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_downstairs_temp_rounded'].state} °F</span>`
+                    ]]]
+                  set_point: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermostat"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_downstairs_set_point'].state } °F</span>`
+                    ]]]
+                state:
+                  - value: cooling
+                    icon: mdi:fan
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                  - value: heating
+                    icon: mdi:radiator
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: entity
+                entity: sensor.flume_sensor_buck_creek_current_day
+                name: Day Water
+                icon: hass:fountain
+                unit: gal
+              - type: custom:button-card
+                name: ' '
+                entity: sensor.flume_sensor_buck_creek_current
+                show_units: true
+                show_state: true
+                icon: mdi:fountain
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0.5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: green
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: sensor.washing_machine_js_electric_consumed_w_3
+                name: ' '
+                show_units: true
+                show_state: true
+                icon: mdi:washing-machine
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: black
+          - type: grid
+            columns: 4
+            square: false
+            cards:
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:lightning-bolt
+                entity: sensor.radio_ps_volts_calc
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 14.5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:thermometer
+                entity: sensor.power_supply
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 140
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio HS
+                icon: mdi:thermometer
+                entity: sensor.radio_heatsink
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 120
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio TX
+                icon: mdi:radio-tower
+                entity: binary_sensor.radio_tx
+                show_units: false
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                    - height: 80px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: orange
+                        - filter: opacity(100%)
+                        - height: 80px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+  - title: Cameras
+    path: cameras
+    icon: mdi:camera
+    panel: true
+    badges: []
     cards:
-      - type: custom:button-card
-        entity: lock.front_door_lock_js
-        name: Front
-        icon: mdi:lock
-        tap_action:
-          action: toggle
-        show_state: false
-        styles:
-          card:
-            - background-color: green
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: unlocked
-            icon: mdi:lock-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: lock.back_door_lock_js
-        name: Back
-        icon: mdi:lock
-        tap_action:
-          action: toggle
-        show_state: false
-        styles:
-          card:
-            - background-color: green
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: unlocked
-            icon: mdi:lock-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: cover.garage_door_js
-        name: Garage
-        icon: mdi:garage
-        tap_action:
-          action: toggle
-        show_state: false
-        styles:
-          card:
-            - '--mdc-ripple-color': blue
-            - '--mdc-ripple-press-opacity': 0.5
-            - background-color: green
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: open
-            icon: mdi:garage-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: binary_sensor.front_garage_door_entry
-        name: Front
-        icon: mdi:door-closed
-        tap_action:
-          action: more-info
-        show_state: false
-        styles:
-          card:
-            - background-color: green
-            - filter: opacity(70%)
-          icon:
-            - color: white
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 'on'
-            icon: mdi:door-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: binary_sensor.back_doore_entry
-        name: Back
-        icon: mdi:door-closed
-        tap_action:
-          action: more-info
-        show_state: false
-        styles:
-          card:
-            - background-color: green
-            - filter: opacity(70%)
-          icon:
-            - color: white
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 'on'
-            icon: mdi:door-open
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        entity: binary_sensor.fridge_door_sensor_js
-        name: Fridge
-        icon: mdi:fridge-variant
-        tap_action:
-          action: more-info
-        show_state: false
-        styles:
-          card:
-            - background-color: green
-            - filter: opacity(70%)
-          icon:
-            - color: white
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 'on'
-            icon: mdi:fridge-variant-alert
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-  - type: grid
-    columns: 8
-    square: false
+      - type: custom:surveillance-card
+        thumb_interval: 5
+        update_interval: 1
+        recording_duration: 10
+        show_capture_buttons: false
+        cameras:
+          - entity: camera.driveway
+          - entity: camera.frontprch
+          - entity: camera.garage
+          - entity: camera.backyrd2
+          - entity: camera.backprch
+  - title: Printer
+    path: printer
+    icon: mdi:printer
+    badges: []
     cards:
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.front_holiday_lights_js
-        name: HLDY
-      - type: button
-        tap_action:
-          action: toggle
-        entity: group.trees
-        name: TREES
-        icon: hass:string-lights
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.deck_lights_js
-        name: Deck
-        icon: hass:spotlight-beam
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.back_porch_lights_js
-        name: BkPch
-        icon: mdi:lightbulb
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.driveway_lights_js
-        name: Drive
-        icon: hass:spotlight-beam
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.front_porch_lights_js
-        name: Prch
-        icon: mdi:lightbulb
-        show_icon: true
-        show_name: true
-      - type: custom:button-card
-        tap_action:
-          action: toggle
-        entity: switch.attic_air_handler_js
-        name: Attic
-        icon: mdi:air-conditioner
-        color_type: card
-        color: rgb(28, 128, 199)
-        state:
-          - value: 'on'
-            styles:
-              card:
-                - filter: (opacity 50%)
-                - height: 55px
-      - type: custom:button-card
-        tap_action:
-          action: info
-        entity: binary_sensor.power_sensor_door_node_js
-        name: Grg Pwr
-        icon: mdi:lightning-bolt
-        color_type: card
-        color: rgb(28, 128, 199)
-        state:
-          - value: 'on'
-            icon: mdi:lightning-bolt
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-                - animation: blink 2s ease infinite
-                - height: 55px
-              icon:
-                - color: white
-              name:
-                - color: white
-                - font-size: 12px
-          - value: 'off'
-            icon: mdi:lightning-bolt
-            styles:
-              card:
-                - filter: opacity(50%)
-                - background-color: green
-                - height: 55px
-              icon:
-                - color: white
-              name:
-                - color: white
-                - font-size: 12px
-  - type: grid
-    columns: 8
-    square: false
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: gauge
+                min: 0
+                max: 100
+                entity: sensor.brother_hl_3140cw_series_black_toner_cartridge
+                name: Black
+                unit: '%'
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+              - type: gauge
+                min: 0
+                max: 100
+                entity: sensor.brother_hl_3140cw_series_cyan_toner_cartridge
+                name: Cyan
+                unit: '%'
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: gauge
+                min: 0
+                max: 100
+                entity: sensor.brother_hl_3140cw_series_magenta_toner_cartridge
+                name: Magenta
+                unit: '%'
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+              - type: gauge
+                min: 0
+                max: 100
+                entity: sensor.brother_hl_3140cw_series_yellow_toner_cartridge
+                name: Yellow
+                unit: '%'
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: gauge
+                min: 0
+                max: 100
+                entity: sensor.hl_3140cw_fuser_remaining_life
+                name: Fuser Life
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+              - type: gauge
+                entity: sensor.hl_3140cw_belt_unit_remaining_life
+                min: 0
+                max: 100
+                name: Belt Life
+                severity:
+                  green: 50
+                  yellow: 30
+                  red: 0
+              - type: entity
+                entity: sensor.hl_3140cw_b_w_counter
+                name: B&W Pages
+              - type: entity
+                entity: sensor.hl_3140cw_color_counter
+                name: Color Pages
+  - title: extension
+    path: extension
+    panel: true
+    visible: []
+    badges: []
     cards:
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.front_hall_lights_js
-        name: Hall
-        icon: mdi:lightbulb
-        show_icon: true
-        show_name: true
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.study_light_js
-        name: Study
-        icon: mdi:floor-lamp
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.kitchen_counter_js
-        name: CNTR
-        icon: mdi:lightbulb
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.kitchen_island_js
-        name: ISLND
-        icon: mdi:lightbulb
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.living_room_lamp_js
-        name: LVNG
-        icon: mdi:lamp
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.cw_lamp_js
-        name: CW
-        icon: mdi:lamp
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.allyson_lamp_js
-        icon: mdi:lamp
-        name: AW
-      - type: button
-        tap_action:
-          action: toggle
-        entity: switch.play_room_light_js
-        name: Play
-        icon: mdi:lightbulb
-  - type: grid
-    columns: 4
-    square: false
+      - type: grid
+        columns: 1
+        square: false
+        name: Big Room
+        cards:
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: script.welcome_home
+                name: Home
+                icon: mdi:home
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: script.alarm_arm_night
+                name: Night
+                icon: mdi:star
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: script.alarm_arm_stay
+                name: Stay
+                icon: mdi:dog
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: script.alarm_arm_away
+                name: Away
+                icon: mdi:car
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: script.alarm_arm_stay_nohvac
+                name: HVAC
+                icon: mdi:fan
+          - type: grid
+            columns: 4
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: more-info
+                entity: alarm_control_panel.buck_creek
+                name: DSC
+              - type: custom:button-card
+                entity: binary_sensor.north_gate_status
+                name: North Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.south_gate_status
+                name: South Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.truck_ble_transmitter
+                name: Truck BLE
+                icon: mdi:truck
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'off'
+                    icon: mdi:truck
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 6
+            cards:
+              - type: custom:button-card
+                entity: lock.front_door_lock_js
+                name: Front
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: lock.back_door_lock_js
+                name: Back
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: cover.garage_door_js
+                name: Garage
+                icon: mdi:garage
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - '--mdc-ripple-color': blue
+                    - '--mdc-ripple-press-opacity': 0.5
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: open
+                    icon: mdi:garage-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.front_garage_door_entry
+                name: Front
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.back_doore_entry
+                name: Back
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.fridge_door_sensor_js
+                name: Fridge
+                icon: mdi:fridge-variant
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:fridge-variant-alert
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 7
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_holiday_lights_js
+                name: HLDY
+                icon: hass:string-lights
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.deck_lights_js
+                name: Deck
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.back_porch_lights_js
+                name: BkPch
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.driveway_lights_js
+                name: Drive
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_porch_lights_js
+                name: Prch
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: custom:button-card
+                tap_action:
+                  action: toggle
+                entity: switch.attic_air_handler_js
+                name: Attic
+                icon: mdi:air-conditioner
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - filter: (opacity 50%)
+                        - height: 55px
+              - type: custom:button-card
+                tap_action:
+                  action: info
+                entity: binary_sensor.power_sensor_door_node_js
+                name: Grg Pwr
+                icon: mdi:lightning-bolt
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+                  - value: 'off'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - filter: opacity(50%)
+                        - background-color: green
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+          - type: grid
+            columns: 8
+            square: false
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_hall_lights_js
+                name: Hall
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.study_light_js
+                name: Study
+                icon: mdi:floor-lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_counter_js
+                name: CNTR
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_island_js
+                name: ISLND
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.living_room_lamp_js
+                name: LVNG
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.cw_lamp_js
+                name: CW
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.allyson_lamp_js
+                icon: mdi:lamp
+                name: AW
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.play_room_light_js
+                name: Play
+                icon: mdi:lightbulb
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: gauge
+                max: 115
+                entity: sensor.outdoor_temperature
+                name: Outside
+                unit: F
+                min: 0
+                severity:
+                  green: 65
+                  yellow: 85
+                  red: 92
+              - type: gauge
+                min: 0
+                max: 125
+                entity: sensor.heat_index
+                name: Feels Like
+                unit: F
+                severity:
+                  green: 45
+                  yellow: 85
+                  red: 92
+              - type: gauge
+                entity: sensor.humidity
+                name: Humidity
+                title: Outside
+                scale: 1.2em
+                min: 0
+                max: 100
+                from: bottom
+                severity:
+                  green: 40
+                  yellow: 65
+                  red: 80
+          - type: grid
+            columns: 5
+            square: false
+            cards:
+              - type: custom:button-card
+                name: Max Wind
+                entity: sensor.max_daily_wind_gust
+                show_state: true
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 20
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(1000%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: white
+                  - value: 12
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(70%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Rain Today
+                entity: sensor.daily_rain_rate
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Rain Rate
+                entity: sensor.rain_rate_2
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Fridge
+                entity: sensor.fridge_temperature
+                title: Fridge
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 45
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Grg Freeze
+                entity: sensor.garage_freezer_sensor_temp
+                title: Grg Freeze
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 10
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+          - type: grid
+            columns: 5
+            square: 'off'
+            cards:
+              - type: custom:button-card
+                name: Study
+                entity: sensor.study_sensor_air_temperature_js
+                title: Study
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Garage
+                entity: sensor.garage_sensor_air_temperature_js
+                title: Garage
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 90
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+              - type: custom:button-card
+                name: Closet
+                entity: sensor.new_buck_creek_inside_temp
+                title: Closet
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Attic
+                entity: sensor.attic_air_temperature_js
+                title: Attic
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: black
+                  - value: 100
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Guest
+                entity: sensor.office_temperature
+                title: Grg Freeze
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+  - title: Radio
+    path: radio
+    icon: mdi:radio-tower
+    badges: []
     cards:
-      - type: custom:bignumber-card
-        entity: sensor.outdoor_temperature
-        title: Outside
-        from: bottom
-        scale: 30px
-        hideunit: true
-        round: 0
-        min: 0
-        max: 115
-        severity:
-          - value: 50
-            bnStyle: var(--label-badge-blue)
-          - value: 82
-            bnStyle: var(--label-badge-green)
-          - value: 90
-            bnStyle: var(--label-badge-yellow)
-          - value: 115
-            bnStyle: var(--label-badge-red)
-            color: '#FFFFFF'
-      - type: custom:bignumber-card
-        entity: sensor.heat_index
-        title: Feels
-        from: bottom
-        scale: 30px
-        hideunit: true
-        round: 0
-        min: 0
-        max: 120
-        severity:
-          - value: 50
-            bnStyle: var(--label-badge-blue)
-          - value: 60
-            bnStyle: var(--label-badge-green)
-          - value: 75
-            bnStyle: var(--label-badge-yellow)
-          - value: 115
-            bnStyle: var(--label-badge-red)
-            color: '#fff'
-      - type: custom:bignumber-card
-        entity: sensor.humidity
-        title: Humidity
-        from: bottom
-        scale: 30px
-        hideunit: true
-        round: 0
-        min: 35
-        max: 100
-        severity:
-          - value: 30
-            bnStyle: rgb(0,0,0)
-          - value: 55
-            bnStyle: rgb(153,204,255)
-          - value: 70
-            bnStyle: rgb(0,128,255)
-          - value: 100
-            bnStyle: rgb(0,76,153)
-            color: '#FFFFFF'
-      - type: button
-        entity: light.guest_lamp
-        name: Guest
-  - type: grid
-    columns: 5
-    square: false
+      - type: grid
+        columns: 1
+        square: true
+        cards:
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:lightning-bolt
+                entity: sensor.radio_ps_volts_calc
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 14
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:thermometer
+                entity: sensor.power_supply
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 140
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio HS
+                icon: mdi:thermometer
+                entity: sensor.radio_heatsink
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 120
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio TX
+                icon: mdi:radio-tower
+                entity: binary_sensor.radio_tx
+                show_units: false
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 150px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: orange
+                        - filter: opacity(100%)
+                        - height: 150px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+              - type: button
+                name: Radio Plug
+                icon: mdi:power
+                entity: switch.tasmota_2
+                show_state: true
+            icon_height: '-10px'
+            hold_action:
+              action: more-info
+  - title: Demo
+    path: demo
+    icon: mdi:ceiling-light
+    badges: []
     cards:
-      - type: custom:button-card
-        name: Max Wind
-        entity: sensor.max_daily_wind_gust
-        show_state: true
-        styles:
-          card:
-            - height: 100px
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 20
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(1000%)
-                - height: 100px
-              icon:
-                - color: white
-              name:
-                - color: white
-              state:
-                - color: white
-          - value: 12
-            operator: '>='
-            styles:
-              card:
-                - background-color: yellow
-                - filter: opacity(70%)
-                - height: 100px
-              icon:
-                - color: black
-              name:
-                - color: black
-              state:
-                - color: black
-      - type: custom:button-card
-        name: Rain Today
-        entity: sensor.daily_rain_rate
-        title: Day Rain
-        show_state: true
-        show_units: false
-        styles:
-          card:
-            - height: 100px
-            - filter: opacity(30%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 0
-            operator: '>'
-            styles:
-              card:
-                - background-color: lightblue
-                - filter: opacity(100%)
-                - height: 100px
-              icon:
-                - color: blue
-              name:
-                - color: blue
-              state:
-                - color: blue
-      - type: custom:button-card
-        name: Rain Rate
-        entity: sensor.rain_rate_2
-        title: Day Rain
-        show_state: true
-        show_units: false
-        styles:
-          card:
-            - height: 100px
-            - filter: opacity(30%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 0
-            operator: '>'
-            styles:
-              card:
-                - background-color: lightblue
-                - filter: opacity(100%)
-                - height: 100px
-              icon:
-                - color: blue
-              name:
-                - color: blue
-              state:
-                - color: blue
-      - type: custom:button-card
-        name: Fridge
-        entity: sensor.fridge_temperature
-        title: Fridge
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-            - height: 100px
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 45
-            operator: '>='
-            styles:
-              card:
-                - background-color: yellow
-                - filter: opacity(100%)
-                - height: 100px
-                - animation: blink 2s ease infinite
-              icon:
-                - color: black
-              name:
-                - color: black
-              state:
-                - color: black
-      - type: custom:button-card
-        name: Grg Freeze
-        entity: sensor.garage_freezer_sensor_temp
-        title: Grg Freeze
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-            - height: 100px
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 10
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-                - height: 100px
-                - animation: blink 2s ease infinite
-              icon:
-                - color: white
-              name:
-                - color: white
-  - type: grid
-    columns: 6
-    square: 'off'
-    cards:
-      - type: custom:button-card
-        icon: mdi:blank
-        name: Study
-        entity: sensor.study_sensor_air_temperature_js
-        title: Study
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 80
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        name: Study PC
-        icon: mdi:blank
-        entity: sensor.pc_box_temperature
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 95
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        name: Garage
-        icon: mdi:blank
-        entity: sensor.garage_sensor_air_temperature_js
-        title: Garage
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 90
-            operator: '>='
-            styles:
-              card:
-                - background-color: yellow
-                - filter: opacity(80%)
-              icon:
-                - color: black
-              name:
-                - color: black
-              state:
-                - color: black
-          - value: 110
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(800%)
-              icon:
-                - color: black
-              name:
-                - color: black
-      - type: custom:button-card
-        name: Closet
-        icon: mdi:blank
-        entity: sensor.new_buck_creek_inside_temp
-        title: Closet
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 80
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-      - type: custom:button-card
-        name: Attic
-        icon: mdi:blank
-        entity: sensor.attic_air_temperature_js
-        title: Attic
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 110
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(800%)
-              icon:
-                - color: white
-              name:
-                - color: white
-              state:
-                - color: black
-          - value: 100
-            operator: '>='
-            styles:
-              card:
-                - background-color: yellow
-                - filter: opacity(80%)
-              icon:
-                - color: black
-              name:
-                - color: black
-              state:
-                - color: black
-      - type: custom:button-card
-        name: Guest
-        icon: mdi:blank
-        entity: sensor.office_temperature
-        show_units: true
-        show_state: true
-        styles:
-          card:
-            - filter: opacity(70%)
-          name:
-            - font-size: 12px
-            - color: white
-        state:
-          - value: 80
-            operator: '>='
-            styles:
-              card:
-                - background-color: red
-                - filter: opacity(100%)
-              icon:
-                - color: white
-              name:
-                - color: white
-  - type: grid
-    columns: 5
-    square: false
-    cards:
-      - type: button
-        tap_action:
-          action: toggle
-        entity: automation.frigate_motion_driveway_new_only
-        show_state: false
-        name: Drive
-        show_icon: true
-        icon: mdi:robot
-      - type: button
-        tap_action:
-          action: toggle
-        entity: automation.frigate_notify_front_porch
-        name: Front
-        show_state: false
-      - type: custom:button-card
-        entity: input_text.4000_extension_status
-        icon: mdi:phone
-        name: 4000
-        color_type: card
-        styles:
-          card:
-            - filter: opacity(20%)
-            - height: 75px
-        state:
-          - value: InUse
-            color: red
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-          - value: Ringing
-            color: green
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-                - animation: blink 2s ease infinite
-      - type: custom:button-card
-        entity: input_text.4001_extension_status
-        icon: mdi:phone
-        name: 4001
-        color_type: card
-        styles:
-          card:
-            - filter: opacity(20%)
-            - height: 75px
-        state:
-          - value: InUse
-            color: red
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-          - value: Ringing
-            color: green
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-                - animation: blink 2s ease infinite
-      - type: custom:button-card
-        entity: input_text.4002_extension_status
-        icon: mdi:phone
-        name: 4002
-        color_type: card
-        styles:
-          card:
-            - filter: opacity(20%)
-            - height: 75px
-        state:
-          - value: InUse
-            color: red
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-          - value: Ringing
-            color: green
-            icon: mdi:phone
-            styles:
-              card:
-                - filter: opacity(100%)
-                - height: 75px
-                - animation: blink 2s ease infinite
-    icon_height: '-10px'
-    hold_action:
-      action: more-info
+      - type: grid
+        cards:
+          - type: grid
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: alarm_control_panel.buck_creek
+                name: DSC
+                show_state: false
+              - type: custom:button-card
+                entity: binary_sensor.north_gate_status
+                name: North Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.south_gate_status
+                name: South Gate
+                icon: mdi:gate
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(50%)
+                    - height: 102px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:gate-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 102px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.vacay_status
+                name: Vacay
+                icon: mdi:tree
+              - type: button
+                tap_action:
+                  action: call-service
+                  service: automation.turn_on
+                  service_data: {}
+                  target:
+                    entity_id: automation.work_day_setup
+                name: Work Mode
+                icon: mdi:desk-lamp
+            columns: 5
+            square: false
+          - type: grid
+            cards:
+              - type: custom:button-card
+                entity: lock.front_door_lock_js
+                name: Front
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: lock.back_door_lock_js
+                name: Back
+                icon: mdi:lock
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: unlocked
+                    icon: mdi:lock-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: cover.garage_door_js
+                name: Garage
+                icon: mdi:garage
+                tap_action:
+                  action: toggle
+                show_state: false
+                styles:
+                  card:
+                    - '--mdc-ripple-color': blue
+                    - '--mdc-ripple-press-opacity': 0.5
+                    - background-color: green
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: open
+                    icon: mdi:garage-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.front_garage_door_entry
+                name: Front
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.back_doore_entry
+                name: Back
+                icon: mdi:door-closed
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: binary_sensor.fridge_door_sensor_js
+                name: Fridge
+                icon: mdi:fridge-variant
+                tap_action:
+                  action: more-info
+                show_state: false
+                styles:
+                  card:
+                    - background-color: green
+                    - filter: opacity(70%)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    icon: mdi:fridge-variant-alert
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+            columns: 6
+            square: false
+          - type: grid
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_holiday_lights_js
+                name: HLDY
+                icon: mdi:string-lights
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: group.trees
+                name: TREES
+                icon: mdi:tree
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.deck_lights_js
+                name: Deck
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.back_porch_lights_js
+                name: BkPch
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.driveway_lights_js
+                name: Drive
+                icon: hass:spotlight-beam
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_porch_lights_js
+                name: Prch
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: custom:button-card
+                tap_action:
+                  action: toggle
+                entity: switch.attic_air_handler_js
+                name: Attic
+                icon: mdi:air-conditioner
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - filter: (opacity 50%)
+                        - height: 55px
+              - type: custom:button-card
+                tap_action:
+                  action: info
+                entity: binary_sensor.power_sensor_door_node_js
+                name: Grg Pwr
+                icon: mdi:lightning-bolt
+                color_type: card
+                color: rgb(28, 128, 199)
+                state:
+                  - value: 'on'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+                  - value: 'off'
+                    icon: mdi:lightning-bolt
+                    styles:
+                      card:
+                        - filter: opacity(50%)
+                        - background-color: green
+                        - height: 55px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                        - font-size: 12px
+            columns: 8
+            square: false
+          - type: grid
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.front_hall_lights_js
+                name: Hall
+                icon: mdi:lightbulb
+                show_icon: true
+                show_name: true
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.study_light_js
+                name: Study
+                icon: mdi:floor-lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_counter_js
+                name: CNTR
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.kitchen_island_js
+                name: ISLND
+                icon: mdi:lightbulb
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.living_room_lamp_js
+                name: LVNG
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.cw_lamp_js
+                name: CW
+                icon: mdi:lamp
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.allyson_lamp_js
+                icon: mdi:lamp
+                name: AW
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.play_room_light_js
+                name: Play
+                icon: mdi:lightbulb
+            columns: 8
+            square: false
+          - type: grid
+            cards:
+              - type: custom:bignumber-card
+                entity: sensor.outdoor_temperature
+                title: Outside
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 0
+                max: 115
+                severity:
+                  - value: 50
+                    bnStyle: var(--label-badge-blue)
+                  - value: 82
+                    bnStyle: var(--label-badge-green)
+                  - value: 90
+                    bnStyle: var(--label-badge-yellow)
+                  - value: 115
+                    bnStyle: var(--label-badge-red)
+                    color: '#FFFFFF'
+              - type: custom:bignumber-card
+                entity: sensor.heat_index
+                title: Feels
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 0
+                max: 120
+                severity:
+                  - value: 50
+                    bnStyle: var(--label-badge-blue)
+                  - value: 60
+                    bnStyle: var(--label-badge-green)
+                  - value: 75
+                    bnStyle: var(--label-badge-yellow)
+                  - value: 115
+                    bnStyle: var(--label-badge-red)
+                    color: '#fff'
+              - type: custom:bignumber-card
+                entity: sensor.humidity
+                title: Humidity
+                from: bottom
+                scale: 30px
+                hideunit: true
+                round: 0
+                min: 0
+                max: 100
+                severity:
+                  - value: 40
+                    bnStyle: rgb(0,0,0)
+                  - value: 55
+                    bnStyle: rgb(102,178,255)
+                  - value: 70
+                    bnStyle: rgb(0,128,255)
+                  - value: 100
+                    bnStyle: rgb(0,76,153)
+                    color: '#FFFFFF'
+              - type: button
+                entity: light.guest_lamp
+                name: Guest
+            columns: 4
+            square: false
+          - type: grid
+            cards:
+              - type: custom:button-card
+                name: Max Wind
+                entity: sensor.max_daily_wind_gust
+                show_state: true
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 20
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: white
+                  - value: 12
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(70%)
+                        - height: 100px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Rain Today
+                entity: sensor.daily_rain_rate
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Rain Rate
+                entity: sensor.rain_rate_2
+                title: Day Rain
+                show_state: true
+                show_units: false
+                styles:
+                  card:
+                    - height: 100px
+                    - filter: opacity(30%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0
+                    operator: '>'
+                    styles:
+                      card:
+                        - background-color: lightblue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: blue
+                      name:
+                        - color: blue
+                      state:
+                        - color: blue
+              - type: custom:button-card
+                name: Fridge
+                entity: sensor.fridge_temperature
+                title: Fridge
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 45
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Grg Freeze
+                entity: sensor.garage_freezer_sensor_temp
+                title: Grg Freeze
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 10
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+            columns: 5
+            square: false
+          - type: grid
+            cards:
+              - type: custom:button-card
+                icon: mdi:blank
+                name: Study
+                entity: sensor.study_sensor_air_temperature_js
+                title: Study
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Study PC
+                icon: mdi:blank
+                entity: sensor.pc_box_temperature
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 95
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Garage
+                icon: mdi:blank
+                entity: sensor.garage_sensor_air_temperature_js
+                title: Garage
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 90
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+              - type: custom:button-card
+                name: Closet
+                icon: mdi:blank
+                entity: sensor.new_buck_creek_inside_temp
+                title: Closet
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Attic
+                icon: mdi:blank
+                entity: sensor.attic_air_temperature_js
+                title: Attic
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 110
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(800%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                      state:
+                        - color: black
+                  - value: 100
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(80%)
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+                      state:
+                        - color: black
+              - type: custom:button-card
+                name: Guest
+                icon: mdi:blank
+                entity: sensor.office_temperature
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 80
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+            columns: 6
+            square: false
+          - type: grid
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: automation.frigate_motion_driveway_new_only
+                show_state: false
+                name: Drive
+                show_icon: true
+                icon: mdi:robot
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: automation.frigate_notify_front_porch
+                name: Front
+                show_state: false
+              - type: custom:button-card
+                entity: input_text.4000_extension_status
+                icon: mdi:phone
+                name: 4000
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+              - type: custom:button-card
+                entity: input_text.4001_extension_status
+                icon: mdi:phone
+                name: 4001
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+              - type: custom:button-card
+                entity: input_text.4002_extension_status
+                icon: mdi:phone
+                name: 4002
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(20%)
+                    - height: 75px
+                state:
+                  - value: InUse
+                    color: red
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                  - value: Ringing
+                    color: green
+                    icon: mdi:phone
+                    styles:
+                      card:
+                        - filter: opacity(100%)
+                        - height: 75px
+                        - animation: blink 2s ease infinite
+            columns: 5
+        columns: 1
+        square: false
+      - type: grid
+        cards:
+          - type: custom:home-feed-card
+            title: null
+            show_empty: false
+            scrollbars_enabled: false
+            max_item_count: 4
+            state_color: true
+            exact_durations: false
+            entities:
+              - entity: binary_sensor.kitchen_living_motion
+                icon: mdi:motion-sensor
+                name: Kitchen/Living Motion
+              - entity: binary_sensor.study_sensor_motion_detected_js
+                icon: mdi:motion-sensor
+                name: Study Motion
+              - entity: sensor.front_hall_last_tripped
+                icon: mdi:motion-sensor
+                name: Front Hall Motion
+              - entity: binary_sensor.upstairs_motion
+                icon: mdi:motion-sensor
+              - entity: binary_sensor.back_doore_entry
+                icon: mdi:door
+                name: Back Door
+              - entity: binary_sensor.front_garage_door_entry
+                icon: mdi:door
+                name: Front Hall Door
+              - entity: sensor.garage_door_js_access_control_barrier_sensor_status
+                icon: mdi:garage
+                name: Garage Door
+              - entity: alarm_control_panel.buck_creek
+                icon: mdi:alarm
+                name: Alarm
+              - entity: switch.study_light_js
+                icon: mdi:lamp
+                name: Study Light
+              - entity: binary_sensor.garage_sensor_js_motion_detection
+                icon: mdi:motion-sensor
+                name: Garage Motion
+              - entity: lock.back_door_lock_js
+                icon: mdi:lock
+                name: Back Door Lock
+              - entity: lock.front_door_lock_js
+                icon: mdi:lock
+                name: Front Door Lock
+              - entity: binary_sensor.fridge_door_sensor_js
+                icon: mdi:door
+                name: Fridge Door
+              - entity: sensor.bi_alert
+                name: BI Alert
+                icon: mdi:camera
+          - type: grid
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.kitchen_living_motion
+                icon: mdi:motion-sensor
+                name: Kitch
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.front_hall_motion
+                icon: mdi:motion-sensor
+                name: Hall
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.garage_sensor_js_motion_detection
+                icon: mdi:motion-sensor
+                name: Garage
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.upstairs_motion
+                icon: mdi:motion-sensor
+                name: Upstairs
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+              - type: custom:button-card
+                entity: binary_sensor.study_sensor_motion_detected_js
+                icon: mdi:motion-sensor
+                name: Study
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    color: red
+                    icon: mdi:alert
+            columns: 5
+            square: false
+          - type: grid
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.driveway_person_motion
+                icon: mdi:motion-sensor
+                name: Driveway
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 14px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - font-size: 14px
+                        - color: black
+              - type: custom:button-card
+                entity: binary_sensor.front_porch_person_motion
+                icon: mdi:motion-sensor
+                name: Porch
+                color_type: card
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                  name:
+                    - font-size: 14px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: yellow
+                        - filter: opacity(100%)
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: black
+                      name:
+                        - font-size: 14px
+                        - color: black
+            columns: 2
+            square: false
+          - type: entities
+            entities:
+              - type: attribute
+                entity: sensor.samba_backup
+                attribute: last_backup
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:auto-entities
+                card:
+                  title: Battery Devices <= 10%
+                  type: custom:bar-card
+                  severity:
+                    - color: Red
+                      from: 0
+                      to: 25
+                    - color: Orange
+                      from: 26
+                      to: 50
+                    - color: Green
+                      from: 51
+                      to: 100
+                  device_class: battery
+                  title_position: left
+                  padding: 0px 15px 3px 15px
+                  saturation: 50%
+                  columns: 1
+                  height: 20px
+                  width: 60%
+                  card_style:
+                    box-shadow: 0 0
+                  bar_style:
+                    border-radius: 20px
+                  indicator_style:
+                    border-radius: 20px
+                filter:
+                  include:
+                    - attributes:
+                        device_class: battery
+                  exclude:
+                    - state: n/a
+                    - state: 'off'
+                    - state: '>= 10'
+                    - state: unknown
+                    - state: unavailable
+          - type: custom:timer-bar-card
+            entities:
+              - entity: timer.radio_transmit
+                icon: mdi:wifi
+            modifications:
+              - elapsed: 40%
+                bar_foreground: orange
+                active_icon: mdi:fire
+                bar_height: 12px
+              - elapsed: 70%
+                bar_foreground: red
+                active_icon: mdi:fire-alert
+        columns: 1
+        square: false
+      - type: grid
+        cards:
+          - type: grid
+            cards:
+              - type: picture-glance
+                entities:
+                  - entity: camera.driveway
+                camera_image: camera.driveway_person
+                entity: binary_sensor.driveway_person_motion
+              - type: picture-glance
+                entities:
+                  - entity: camera.frontprch
+                camera_image: camera.front_porch_person
+                entity: binary_sensor.front_porch_person_motion
+            square: false
+          - type: custom:mini-media-player
+            entity: media_player.living_rm_roku_ultra
+            name: Living Room Roku
+            icon: mdi:television-clean
+            artwork: cover
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view: '[object Object]'
+          - type: custom:mini-media-player
+            name: Play Room Roku
+            artwork: cover
+            icon: mdi:television-clean
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view:
+              when_idle: true
+              when_standby: true
+            entity: media_player.play_room_roku
+          - type: custom:mini-media-player
+            name: Study Roku Stick
+            artwork: cover
+            icon: mdi:television-clean
+            hide:
+              volume: true
+              source: false
+              power_state: false
+            idle_view: '[object Object]'
+            entity: media_player.study_stick
+          - type: grid
+            cards:
+              - type: custom:button-card
+                entity: sensor.upstairs_hvac_state
+                name: Upstairs
+                show_units: false
+                show_state: false
+                icon: mdi:fan-off
+                size: 25%
+                styles:
+                  card:
+                    - text-transform: capitalize
+                    - filter: opacity(50%)
+                    - font-size: 20px
+                    - height: 100px
+                  name:
+                    - font-weight: bold
+                    - font-size: 15px
+                    - color: white
+                    - align-self: start
+                    - justify-self: start
+                    - padding-left: 30px
+                  img_cell:
+                    - justify-content: middle
+                    - align-items: start
+                  grid:
+                    - grid-template-areas: '"n n" "i temp" "i set_point"'
+                    - grid-template-columns: 1fr 1fr
+                    - grid-template-rows: 1fr min-content min-content
+                  custom_fields:
+                    temp:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                    set_point:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                      - font-size: 15px
+                custom_fields:
+                  temp: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermometer"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_upstairs_temp_rounded'].state } °F</span>`
+                    ]]]
+                  set_point: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermostat"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_upstairs_set_point'].state } °F</span>`
+                    ]]]
+                state:
+                  - value: cooling
+                    icon: mdi:fan
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                  - value: heating
+                    icon: mdi:radiator
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: sensor.downstairs_hvac_state
+                name: Downstairs
+                show_units: false
+                show_state: false
+                icon: mdi:fan-off
+                size: 25%
+                styles:
+                  card:
+                    - text-transform: capitalize
+                    - filter: opacity(50%)
+                    - font-size: 20px
+                    - height: 100px
+                  name:
+                    - font-weight: bold
+                    - font-size: 15px
+                    - color: white
+                    - align-self: start
+                    - justify-self: start
+                    - padding-left: 20px
+                  img_cell:
+                    - justify-content: middle
+                    - align-items: start
+                  grid:
+                    - grid-template-areas: '"n n" "i temp" "i set_point"'
+                    - grid-template-columns: 1fr 1fr
+                    - grid-template-rows: 1fr min-content min-content
+                  custom_fields:
+                    temp:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                    set_point:
+                      - align-self: middle
+                      - justify-self: start
+                      - padding: 4px
+                      - font-size: 15px
+                custom_fields:
+                  temp: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermometer"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_downstairs_temp_rounded'].state} °F</span>`
+                    ]]]
+                  set_point: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermostat"
+                        style="width: 12px; height: 12px; color: green; padding-right: 3px">
+                        </ha-icon><span>${states['sensor.nest_downstairs_set_point'].state } °F</span>`
+                    ]]]
+                state:
+                  - value: cooling
+                    icon: mdi:fan
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+                  - value: heating
+                    icon: mdi:radiator
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(70%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+            columns: 2
+            square: false
+          - type: grid
+            cards:
+              - type: entity
+                entity: sensor.flume_sensor_buck_creek_current_day
+                name: Day Water
+                icon: mdi:fountain
+                unit: gal
+              - type: custom:button-card
+                name: ' '
+                entity: sensor.flume_sensor_buck_creek_current
+                show_units: true
+                show_state: true
+                icon: mdi:fountain
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 0.5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: green
+                        - filter: opacity(100%)
+                        - height: 100px
+                        - animation: blink 2s ease infinite
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                entity: sensor.washing_machine_js_electric_consumed_w_3
+                name: ' '
+                show_units: true
+                show_state: true
+                icon: mdi:washing-machine
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - height: 100px
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: blue
+                        - filter: opacity(100%)
+                        - height: 100px
+                      icon:
+                        - color: white
+                      name:
+                        - color: black
+            square: false
+          - type: grid
+            cards:
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:lightning-bolt
+                entity: sensor.radio_ps_volts_calc
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 14.5
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio PS
+                icon: mdi:thermometer
+                entity: sensor.power_supply
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 140
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio HS
+                icon: mdi:thermometer
+                entity: sensor.radio_heatsink
+                show_units: true
+                show_state: true
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 120
+                    operator: '>='
+                    styles:
+                      card:
+                        - background-color: red
+                        - filter: opacity(100%)
+                      icon:
+                        - color: white
+                      name:
+                        - color: white
+              - type: custom:button-card
+                name: Radio TX
+                icon: mdi:radio-tower
+                entity: binary_sensor.radio_tx
+                show_units: false
+                show_state: false
+                styles:
+                  card:
+                    - filter: opacity(70%)
+                    - background-color: rgb(0,25,51)
+                    - height: 80px
+                  icon:
+                    - color: white
+                  name:
+                    - font-size: 12px
+                    - color: white
+                state:
+                  - value: 'on'
+                    styles:
+                      card:
+                        - background-color: orange
+                        - filter: opacity(100%)
+                        - height: 80px
+                      icon:
+                        - color: black
+                      name:
+                        - color: black
+            columns: 4
+        columns: 1
+        square: false
