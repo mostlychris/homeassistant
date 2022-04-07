@@ -1,0 +1,38 @@
+cards:
+  - type: custom:auto-entities
+    card:
+      title: Battery Devices <= 10%
+      type: custom:bar-card
+      severity:
+        - color: Red
+          from: 0
+          to: 25
+        - color: Orange
+          from: 26
+          to: 50
+        - color: Green
+          from: 51
+          to: 100
+      device_class: battery
+      title_position: left
+      padding: 0px 15px 3px 15px
+      saturation: 50%
+      columns: 1
+      height: 20px
+      width: 60%
+      card_style:
+        box-shadow: 0 0
+      bar_style:
+        border-radius: 20px
+      indicator_style:
+        border-radius: 20px
+    filter:
+      include:
+        - attributes:
+            device_class: battery
+      exclude:
+        - state: n/a
+        - state: 'off'
+        - state: '>= 10'
+        - state: unknown
+        - state: unavailable
