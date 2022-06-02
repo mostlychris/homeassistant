@@ -1,18 +1,18 @@
 mqtt:
-  
+
   host: 172.16.1.121
   port: 1883
   topic_prefix: frigate
   client_id: frigate
-  user: mqtt_user
-  password: mqtt_pass
-  stats_interval: 60
+  user: mqttuser
+  password: mqttpass
+  stats_interval: 300
 
-database:
-  path: /media/frigate/clips/frigate.db
+record:
+  expire_interval: 10
+
 
 timestamp_style:
-  position: "tl"
   format: "%m/%d/%Y %H:%M:%S"
   color:
     red: 255
@@ -31,7 +31,75 @@ cameras:
         - path: rtsp://user:pass@172.16.1.26:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
-    detect:                 
+    detect:
+      width: 640
+      height: 480
+      fps: 5
+    objects:
+      track:
+        - person
+        - dog
+        - bicycle
+        - cat
+        - car
+      filters:
+        car:
+          min_area: 15000
+        person:
+          min_area: 500
+    snapshots:
+      enabled: true
+      timestamp: true
+      bounding_box: true
+      required_zones:
+        - drivewayclose_in
+        - driveway_whole_area
+      crop: True
+      height: 500
+      retain:
+        default: 3
+    zones:
+      drivewayclose_in:
+        coordinates: 0,480,429,480,443,335,460,173,263,133,88,120,36,212,0,279
+        objects:
+          - car
+          - person
+          - dog
+          - cat
+          - bicycle
+      driveway_whole_area:
+        coordinates: 383,52,497,105,569,316,575,480,261,480,0,480,0,225,148,57
+        objects:
+          - person
+          - cat
+          - dog
+          - bicycle
+    motion:
+      mask:
+        - 2,465,328,468,330,432,5,431
+        - 72,43,154,0,0,0,0,129
+    record:
+      enabled: True
+      retain:
+        days: 0
+      events:
+        retain:
+          default: 5
+          mode: motion
+        required_zones:
+          - drivewayclose_in
+          - driveway_whole_area
+        pre_capture: 5
+        post_capture: 15
+
+  front_porch:
+    ffmpeg:
+      inputs:
+        - path: rtsp://user:pass@172.16.1.27:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - detect
+    detect:
       width: 640
       height: 480
       fps: 5
@@ -45,79 +113,19 @@ cameras:
         - dog
         - bicycle
         - cat
-        - car
-      mask:
-        - 2,465,328,468,330,432,5,431
-        - 640,0,640,72,484,21,333,21,133,64,62,123,0,196,0,0
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 500
-      quality: 100
-    snapshots:
-      enabled: true
-      timestamp: true
-      bounding_box: true
-      crop: True
-      height: 500
-      retain:
-        default: 5
-    zones:
-      drivewayclose_in:
-        coordinates: 0,480,286,480,312,323,221,223,233,161,107,133,36,212,0,279      
-    motion:
-      mask:
-        - 2,465,328,468,330,432,5,431
-        - 640,0,640,72,484,21,333,21,133,64,62,123,0,178,0,0
-      threshold: 20
-      contour_area: 100
-    record:
-      enabled: True
-      retain: 
-        days: 3
-        mode: motion
-      events:
-        retain:
-          default: 10
-          mode: active_objects
-        pre_capture: 5
-        post_capture: 15  
-
-  front_porch:
-    ffmpeg:
-      inputs:
-        - path: rtsp://user:pass@172.16.1.27:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - detect
-    detect:
-      width: 640
-      height: 480
-      fps: 5
-    objects:
-      track:
-        - person
-        - dog
-        - bicycle
-        - cat
       mask:
         - 0,480,198,480,200,449,0,451
         - 640,0,640,36,640,111,608,135,485,96,504,0
         - 439,200,441,324,512,320,532,261,554,188,540,129,451,134
         - 370,0,356,100,291,79,292,0
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 175
-      quality: 100
     snapshots:
       enabled: true
       timestamp: false
       bounding_box: false
       crop: True
       height: 500
+      required_zones:
+        - front_porch_close_in
       retain:
         default: 5
     motion:
@@ -128,18 +136,20 @@ cameras:
         - 370,0,356,100,291,79,292,0
     zones:
       front_porch_close_in:
-        coordinates: 45,480,362,480,640,480,640,254,546,212,525,328,466,343,408,272,348,70,253,64,181,118,67,178
+        coordinates: 45,480,362,480,640,480,640,213,554,145,525,328,466,343,408,272,348,70,253,64,181,118,67,178
     record:
       enabled: True
       retain:
-        days: 2
-        mode: all
+        days: 0
+        mode: active_objects
       events:
         retain:
-          default: 5
-          mode: motion
+          default: 4
+          mode: active_objects
+        required_zones:
+         - front_porch_close_in
         pre_capture: 5
-        post_capture: 15  
+        post_capture: 15
 
   back_porch:
     ffmpeg:
@@ -159,38 +169,42 @@ cameras:
         - person
         - dog
         - cat
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 175
-      quality: 100
-    snapshots:
-      enabled: true
-      timestamp: false
-      bounding_box: true
-      retain:
-        default: 5
-    motion:
+        - bird
+        - mouse
+      filters:
+        cat:
+          min_score: 0.3
+          threshold: 0.5
+        dog:
+          min_score: 0.3
+          threshold: 0.5
       mask:
         - 23,480,333,480,333,442,26,440
         - 640,95,640,0,464,0
         - 258,211,323,246,357,142,274,140
         - 383,342,457,365,477,261,401,232
         - 425,131,553,227,640,251,640,213,607,176,460,88
+    snapshots:
+      enabled: true
+      timestamp: false
+      bounding_box: true
+      retain:
+        default: 3
+    motion:
+
     zones:
       deck_area:
         coordinates: 0,284,0,457,207,480,474,480,640,480,540,406,392,259,253,106,166,31,108,49,0,72
     record:
-      enabled: True
-      retain: 
+          enabled: True
+      retain:
         days: 0
       events:
         retain:
-          default: 5
+          default: 4
           mode: motion
         pre_capture: 5
-        post_capture: 15  
+        post_capture: 15
 
   deck:
     ffmpeg:
@@ -210,31 +224,37 @@ cameras:
         - person
         - dog
         - cat
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 175
-      quality: 100
+        - bird
+        - mouse
+      filters:
+        cat:
+          min_score: 0.3
+          threshold: 0.5
+        dog:
+          min_score: 0.3
+          threshold: 0.5
+        person:
+          mask:
+            - 79,385,107,480,287,480,259,313,107,268
     snapshots:
       enabled: true
       timestamp: false
       bounding_box: true
       retain:
-        default: 5
+        default: 4
     motion:
       mask:
-        - 374,480,640,480,640,442,372,442   
+        - 374,480,640,480,640,442,372,442
     record:
       enabled: True
-      retain: 
+      retain:
         days: 0
       events:
         retain:
-          default: 5
+          default: 4
           mode: motion
         pre_capture: 5
-        post_capture: 15  
+        post_capture: 15
 
 
   garage:
@@ -256,80 +276,30 @@ cameras:
         - dog
         - bicycle
         - cat
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 175
-      quality: 100
     snapshots:
       enabled: true
       timestamp: false
       bounding_box: true
       retain:
-        default: 5
+        default: 3
     record:
       enabled: True
-      retain: 
+      retain:
         days: 0
       events:
         retain:
-          default: 5
-          mode: motion
+          default: 4
+          mode: active_objects
         pre_capture: 5
-        post_capture: 15  
+        post_capture: 15
     motion:
       mask:
         - 352,93,477,95,554,99,640,94,640,0,343,0
-        - 457,480,640,480,640,445,453,444 
-
-  testcam:
-    ffmpeg:
-      inputs:
-        - path: rtsp://user:pass@172.16.1.30:554/Streaming/Channels/102
-          roles:
-            - detect
-        - path: rtsp://user:pass@172.16.1.30:554/Streaming/Channels/101
-          roles:
-            - record
-    detect:
-      width: 640
-      height: 480
-      fps: 6
-    objects:
-      track:
-        - person
-        - dog
-        - cat
-    mqtt:
-      timestamp: False
-      bounding_box: False
-      crop: True
-      height: 500
-      quality: 100
-    snapshots:
-      enabled: true
-      timestamp: false
-      bounding_box: false
-      crop: true
-      height: 500
-      retain:
-        default: 5
-    record:
-      enabled: True
-      retain: 
-        days: 0
-      events:
-        retain:
-          default: 5
-          mode: motion
-        pre_capture: 5
-        post_capture: 15  
- 
-detectors: 
-  coral:
-    type: edgetpu
-    device: usb
+        - 457,480,640,480,640,445,453,444
+detectors:
+  cpu1:
+    type: cpu
+    num_threads: 3
 
 rtmp:
   enabled: false
@@ -338,7 +308,10 @@ birdseye:
   enabled: True
   width: 1280
   height: 720
-  quality: 3
+  quality: 1
   mode: objects
 
-
+live:
+  height: 640
+  quality: 1
+                                                  
