@@ -1,0 +1,65 @@
+alias: Frigate Back Door w Image
+description: ""
+trigger:
+  - platform: mqtt
+    topic: frigate/events
+    payload: back_porch/new
+    value_template: "{{ value_json['after']['camera'] }}/{{ value_json['type']}}"
+    id: frigate-event
+condition: []
+action:
+  - choose:
+      - alias: Frigate Event
+        conditions:
+          - condition: trigger
+            id: frigate-event
+          - condition: template
+            value_template: >-
+              {{ not this.attributes.last_triggered or (now() -
+              this.attributes.last_triggered).seconds > cooldown }}
+        sequence:
+          - variables:
+              id: "{{ trigger.payload_json['after']['id'] }}"
+              initial_entered_zones: "{{ trigger.payload_json['after']['entered_zones'] }}"
+          - alias: Notifications enabled for object label
+            condition: template
+            value_template: "{{ not labels|length or object in labels }}"
+          - alias: Notify on new object
+            choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ not zone_only or initial_entered_zones|length > 0 }}"
+                  - condition: template
+                    value_template: >-
+                      {{ not zones|length or zones|select('in',
+                      initial_entered_zones)|list|length > 0 }}
+                sequence:
+                  - service: notify.{ your mobile app name in HA }
+                    data:
+                      message: Back Porch Motion
+                      title: Back Porch Alert
+                      data:
+                        image: "{{base_url}}/{{id}}/thumbnail.jpg?format=android"
+                        clickAction: "{{action_url}}/api/events/{{id}}/clip.mp4"
+                        actions:
+                          - action: URI
+                            title: View Clip
+                            uri: "{{action_url}}/api/events/{{id}}/clip.mp4"
+                        channel: back_porch
+                        priority: high
+                        ttl: 0
+                  ## IF YOU RUN HASS AGENT ON A PC YOU CAN SEND ALERTS/IMAGES TO IT AS WELL
+                  - service: notify.hass_agent_superman
+                    data:
+                      message: Back Porch Motion
+                      title: Back Porch Alert
+                      data:
+                        image: "{{base_url}}/{{id}}/thumbnail.jpg"
+mode: single
+variables:
+  base_url: >-
+    { publicly reachable URL (or private if you only want pictures when you are local) }
+  action_url: { your frigate instance URL }
+  cooldown: 90
+  zones:
+    - deck_area
