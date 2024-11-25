@@ -1,0 +1,46 @@
+type: custom:bubble-card
+card_type: button
+entity: light.floor_lamp
+tap_action:
+  action: toggle
+hold_action:
+  action: more-info
+layout_options:
+  grid_columns: 4
+  grid_rows: 1
+sub_button:
+  - entity: switch.mini_smart_wi_fi_plug
+    name: Lamp
+    show_name: true
+    show_state: false
+    show_attribute: false
+    tap_action:
+      action: toggle
+  - entity: switch.studio_lamp
+    name: LED
+    show_name: true
+    icon: mdi:led-off
+    tap_action:
+      action: toggle
+  - entity: switch.studio_fan_plug
+    name: F
+    icon: mdi:fan
+    tap_action:
+      action: toggle
+    show_name: true
+    hold_action:
+      action: more-info
+  - entity: fan.media_fan
+    name: C
+    show_name: true
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+  - entity: automation.apollo_presence_sensor_automation
+    name: Presence
+    tap_action:
+      action: toggle
+    show_name: false
+name: Govee
+show_name: true
